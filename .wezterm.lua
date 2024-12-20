@@ -201,6 +201,16 @@ if wezterm.target_triple:find("apple%-darwin") then
 		mods = "CTRL",
 		action = wezterm.action.QuitApplication,
 	})
+	table.insert(config.keys, {
+		key = "c",
+		mods = "CTRL",
+		action = wezterm.action.CopyTo("Clipboard"),
+	})
+	table.insert(config.keys, {
+		key = "v",
+		mods = "CTRL",
+		action = wezterm.action.PasteFrom("Clipboard"),
+	})
 end
 
 -- Format tab titles dynamically (use tab_title if set, else pane title)
