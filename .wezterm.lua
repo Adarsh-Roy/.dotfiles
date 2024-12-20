@@ -2,7 +2,11 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-config.font = wezterm.font("MesloLGS Nerd Font Mono")
+config.font = wezterm.font_with_fallback({
+	"JetBrains Mono", -- Primary font
+	"Symbols Nerd Font Mono", -- Nerd Font glyphs fallback
+	"Noto Color Emoji", -- Emoji fallback
+})
 config.font_size = 19
 
 config.window_decorations = "RESIZE"
@@ -242,24 +246,25 @@ wezterm.on("gui-startup", function()
 	-- Create "default" workspace
 	local default_tab, default_pane, default_window = mux.spawn_window({ workspace = "default" })
 
-	-- Create "df-services" workspace
-	local services_tab, services_pane, services_window = mux.spawn_window({ workspace = "df-services" })
-	services_tab:set_title("nvim")
-	services_pane:send_text("open-df-services\n")
+	if wezterm.target_triple:find("apple%-darwin") then
+		-- Create "df-services" workspace
+		local services_tab, services_pane, services_window = mux.spawn_window({ workspace = "df-services" })
+		services_tab:set_title("nvim")
+		services_pane:send_text("open-df-services\n")
 
-	local df_git_tab, df_git_pane, _ = services_window:spawn_tab({})
-	df_git_tab:set_title("git")
-	df_git_pane:send_text("cd ~/Desktop/Apps_Team_Code/df-services; lazygit\n")
+		local df_git_tab, df_git_pane, _ = services_window:spawn_tab({})
+		df_git_tab:set_title("git")
+		df_git_pane:send_text("cd ~/Desktop/Apps_Team_Code/df-services; lazygit\n")
 
-	-- Create "df-common" workspace
-	local common_tab, common_pane, common_window = mux.spawn_window({ workspace = "df-common" })
-	common_tab:set_title("nvim")
-	common_pane:send_text("open-df-common\n")
+		-- Create "df-common" workspace
+		local common_tab, common_pane, common_window = mux.spawn_window({ workspace = "df-common" })
+		common_tab:set_title("nvim")
+		common_pane:send_text("open-df-common\n")
 
-	local common_git_tab, common_git_pane, _ = common_window:spawn_tab({})
-	common_git_tab:set_title("git")
-	common_git_pane:send_text("c ~/Desktop/Apps_Team_Code/df-common; lazygit\n")
-
+		local common_git_tab, common_git_pane, _ = common_window:spawn_tab({})
+		common_git_tab:set_title("git")
+		common_git_pane:send_text("c ~/Desktop/Apps_Team_Code/df-common; lazygit\n")
+	end
 	mux.set_active_workspace("default")
 end)
 
