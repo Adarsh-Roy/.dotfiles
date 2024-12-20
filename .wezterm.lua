@@ -3,15 +3,20 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.font = wezterm.font_with_fallback({
-	"JetBrains Mono", -- Primary font
-	"Symbols Nerd Font Mono", -- Nerd Font glyphs fallback
-	"Noto Color Emoji", -- Emoji fallback
+	"JetBrains Mono",
+	"Symbols Nerd Font Mono",
+	"Noto Color Emoji",
 })
 config.font_size = 19
 
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.83
 config.macos_window_background_blur = 13
+
+-- Powershell as defalt in windows
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	config.default_prog = { "powershell.exe" }
+end
 
 -- Colors matching your scheme
 config.colors = {
