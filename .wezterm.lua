@@ -49,12 +49,6 @@ config.colors = {
 	},
 }
 
--- Enable tab bar at the bottom and zero-based indexing
-config.enable_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = false
-config.use_fancy_tab_bar = false
-config.tab_and_split_indices_are_zero_based = true
-
 -- Keys
 config.keys = {}
 
@@ -212,6 +206,12 @@ if wezterm.target_triple:find("apple%-darwin") then
 		action = wezterm.action.PasteFrom("Clipboard"),
 	})
 end
+
+-- Tab bar
+config.enable_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = false
+config.use_fancy_tab_bar = false
+config.tab_and_split_indices_are_zero_based = true
 
 -- Format tab titles dynamically (use tab_title if set, else pane title)
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
