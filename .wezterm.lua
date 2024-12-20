@@ -278,7 +278,7 @@ wezterm.on("gui-startup", function()
 
 		local common_git_tab, common_git_pane, _ = common_window:spawn_tab({})
 		common_git_tab:set_title("git")
-		common_git_pane:send_text("c ~/Desktop/Apps_Team_Code/df-common; lazygit\n")
+		common_git_pane:send_text("cd ~/Desktop/Apps_Team_Code/df-common; lazygit\n")
 	end
 	mux.set_active_workspace("default")
 end)
