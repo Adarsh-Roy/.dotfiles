@@ -7,7 +7,7 @@ local function setup_font(cfg)
 		"Symbols Nerd Font Mono",
 		"Noto Color Emoji",
 	})
-	cfg.font_size = 19
+	cfg.font_size = 17
 end
 
 local function setup_colors(cfg)
@@ -72,7 +72,10 @@ local function setup_tabs_status(cfg)
 		local inactive_bg = config.colors.tab_bar.inactive_tab.bg_color
 		local inactive_fg = config.colors.tab_bar.inactive_tab.fg_color
 
-		local title = tab.active_pane.title or ""
+		local title = tab.tab_title
+		if not title or #title == 0 then
+			title = tab.active_pane.title or ""
+		end
 		if #title > max_width - 3 then
 			title = title:sub(1, max_width - 3) .. "…"
 		end
@@ -80,7 +83,7 @@ local function setup_tabs_status(cfg)
 		if tab.is_active then
 			-- Active tab
 			return {
-				{ Background = { Color = "none" } },
+				{ Background = { Color = config.colors.tab_bar.background } },
 				{ Foreground = { Color = active_bg } },
 				{ Text = LEFT_ARROW },
 
@@ -88,14 +91,14 @@ local function setup_tabs_status(cfg)
 				{ Foreground = { Color = active_fg } },
 				{ Text = " " .. title .. " " },
 
-				{ Background = { Color = "none" } },
+				{ Background = { Color = config.colors.tab_bar.background } },
 				{ Foreground = { Color = active_bg } },
 				{ Text = RIGHT_ARROW },
 			}
 		else
 			-- Inactive tab
 			return {
-				{ Background = { Color = "none" } },
+				{ Background = { Color = config.colors.tab_bar.background } },
 				{ Foreground = { Color = inactive_bg } },
 				{ Text = LEFT_ARROW },
 
@@ -107,7 +110,7 @@ local function setup_tabs_status(cfg)
 				},
 				{ Text = " " .. title .. " " },
 
-				{ Background = { Color = "none" } },
+				{ Background = { Color = config.colors.tab_bar.background } },
 				{ Foreground = { Color = inactive_bg } },
 				{ Text = RIGHT_ARROW },
 			}
@@ -123,7 +126,7 @@ local function setup_tabs_status(cfg)
 		local workspace = window:active_workspace()
 
 		local right_status = {
-			{ Background = { Color = "none" } },
+			{ Background = { Color = config.colors.tab_bar.background } },
 			{ Foreground = { Color = active_bg } },
 			{ Text = LEFT_ARROW },
 
@@ -131,7 +134,7 @@ local function setup_tabs_status(cfg)
 			{ Foreground = { Color = active_fg } },
 			{ Text = " " .. workspace .. " " },
 
-			{ Background = { Color = "none" } },
+			{ Background = { Color = active_bg } },
 			{ Foreground = { Color = active_bg } },
 			{ Text = RIGHT_ARROW },
 		}
@@ -224,8 +227,8 @@ local function setup_keys(cfg)
 			for _, km in ipairs(swap_modifiers("CMD|SHIFT", "CTRL|SHIFT")) do
 				table.insert(mappings, km)
 			end
-			-- Cmd+Alt->Ctrl+Cmd
-			for _, km in ipairs(swap_modifiers("CMD|ALT", "CTRL|CMD")) do
+			-- Cmd+Opt->Ctrl+Opt
+			for _, km in ipairs(swap_modifiers("CMD|ALT", "CTRL|ALT")) do
 				table.insert(mappings, km)
 			end
 			return mappings
@@ -330,21 +333,21 @@ local function setup_gui_startup()
 		if wezterm.target_triple:find("apple%-darwin") then
 			-- Create "df-services" workspace
 			local services_tab, services_pane, services_window = mux.spawn_window({ workspace = "df-services" })
-			services_tab:set_title("nvim")
 			services_pane:send_text("open-df-services\n")
+			services_tab:set_title("nvim")
 
 			local df_git_tab, df_git_pane, _ = services_window:spawn_tab({})
-			df_git_tab:set_title("git")
 			df_git_pane:send_text("cd ~/Desktop/Apps_Team_Code/df-services; lazygit\n")
+			df_git_tab:set_title("git")
 
 			-- Create "df-common" workspace
 			local common_tab, common_pane, common_window = mux.spawn_window({ workspace = "df-common" })
-			common_tab:set_title("nvim")
 			common_pane:send_text("open-df-common\n")
+			common_tab:set_title("nvim")
 
 			local common_git_tab, common_git_pane, _ = common_window:spawn_tab({})
-			common_git_tab:set_title("git")
 			common_git_pane:send_text("cd ~/Desktop/Apps_Team_Code/df-common; lazygit\n")
+			common_git_tab:set_title("git")
 		end
 
 		mux.set_active_workspace("default")
