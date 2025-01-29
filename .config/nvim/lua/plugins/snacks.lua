@@ -82,11 +82,16 @@ return {
 			desc = "[G]it [O]pen in Browser",
 		},
 		{
-			"<leader>gu",
+			"<leader>gy",
 			function()
-				Snacks.gitbrowse.get_url()
+				Snacks.gitbrowse({
+					open = function(url)
+						vim.fn.setreg("+", url)
+					end,
+					notify = false,
+				})
 			end,
-			desc = "[G]it [U]rl",
+			{ desc = "[G]it [Y]ank" },
 		},
 		{
 			"<leader>gb",

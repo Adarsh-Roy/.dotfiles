@@ -3,6 +3,7 @@ local config = wezterm.config_builder()
 
 local function setup_font(cfg)
 	cfg.font = wezterm.font_with_fallback({
+		"Maple Mono NF",
 		"JetBrains Mono",
 		"Symbols Nerd Font Mono",
 		"Noto Color Emoji",
@@ -79,6 +80,9 @@ local function setup_tabs_status(cfg)
 		if #title > max_width - 3 then
 			title = title:sub(1, max_width - 3) .. "…"
 		end
+
+		local tab_number = tab.tab_index
+		title = string.format("%d | %s", tab_number, title)
 
 		if tab.is_active then
 			-- Active tab
