@@ -337,16 +337,28 @@ local function setup_gui_startup()
 		if wezterm.target_triple:find("apple%-darwin") then
 			-- Create "df-services" workspace
 			local services_tab, services_pane, services_window = mux.spawn_window({ workspace = "df-services" })
-			services_pane:send_text("open-df-services\n")
+			services_pane:send_text("open-df-services; nvim\n")
 			services_tab:set_title("nvim")
 
-			local df_git_tab, df_git_pane, _ = services_window:spawn_tab({})
+			local services_server_tab, services_server_pane, _ = services_window:spawn_tab({})
+			services_server_pane:send_text("open-df-services\n")
+			services_server_tab:set_title("server")
+
+			local services_db_tab, services_db_pane, _ = services_window:spawn_tab({})
+			services_db_pane:send_text("open-df-services; make create-services-db; make connect-to-services-db\n")
+			services_db_tab:set_title("db")
+
+			local services_alem_tab, services_alem_pane, _ = services_window:spawn_tab({})
+			services_alem_pane:send_text("open-df-services\n")
+			services_alem_tab:set_title("alem")
+
+			local services_git_tab, df_git_pane, _ = services_window:spawn_tab({})
 			df_git_pane:send_text("cd ~/Desktop/Apps_Team_Code/df-services; lazygit\n")
-			df_git_tab:set_title("git")
+			services_git_tab:set_title("git")
 
 			-- Create "df-common" workspace
 			local common_tab, common_pane, common_window = mux.spawn_window({ workspace = "df-common" })
-			common_pane:send_text("open-df-common\n")
+			common_pane:send_text("open-df-common; nvim\n")
 			common_tab:set_title("nvim")
 
 			local common_git_tab, common_git_pane, _ = common_window:spawn_tab({})

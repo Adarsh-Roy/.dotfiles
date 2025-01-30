@@ -4,13 +4,20 @@
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-vim.keymap.set("n", "<leader>dd", "<cmd>cd %:p:h<CR>", { desc = "Change to [D]ocument [D]irectory" })
+vim.keymap.set("n", "<leader>bl", "<cmd>cd %:p:h<CR>", { desc = "Change to [B]uffer [L]ocation" })
 
 -- Navigation keymaps
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
 -- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>iq", vim.diagnostic.setloclist, { desc = "Open [I]ssues [Q]uickfix list" })
+vim.keymap.set(
+	"n",
+	"<leader>if",
+	"<cmd> lua vim.diagnostic.open_float()<CR>",
+	{ desc = "Open [I]ssue in [F]loating window" }
+)
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which

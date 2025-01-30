@@ -65,14 +65,14 @@ return {
 			function()
 				Snacks.bufdelete()
 			end,
-			desc = "Delete Buffer",
+			desc = "[B]uffer [D]elete",
 		},
 		{
-			"<leader>cR",
+			"<leader>br",
 			function()
 				Snacks.rename.rename_file()
 			end,
-			desc = "Rename File",
+			desc = "[B]uffer [R]ename (rename file)",
 		},
 		{
 			"<leader>go",
@@ -98,28 +98,21 @@ return {
 			function()
 				Snacks.git.blame_line()
 			end,
-			desc = "Git Blame Line",
+			desc = "[G]it [B]lame Line",
 		},
 		{
 			"<leader>gf",
 			function()
 				Snacks.lazygit.log_file()
 			end,
-			desc = "Lazygit Current File History",
-		},
-		{
-			"<leader>gg",
-			function()
-				Snacks.lazygit()
-			end,
-			desc = "Lazygit",
+			desc = "[G]it [F]ile History",
 		},
 		{
 			"<leader>gl",
 			function()
 				Snacks.lazygit.log()
 			end,
-			desc = "Lazygit Log (cwd)",
+			desc = "[G]it [L]og",
 		},
 		{
 			"<leader>un",
