@@ -27,12 +27,6 @@ vim.keymap.set(
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
 -- Window Keymaps
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -46,6 +40,16 @@ vim.keymap.set("n", "<leader>-", "<C-w>-", { desc = "Decrease window height" })
 vim.keymap.set("n", "<leader>+", "<C-w>+", { desc = "Increase window height" })
 vim.keymap.set("n", "<leader><", "<C-w><", { desc = "Decrease window width" })
 vim.keymap.set("n", "<leader>>", "<C-w>>", { desc = "Increase window width" })
+
+-- Open the current line in pycharm
+vim.keymap.set("n", "<leader>op", function()
+	local path = vim.api.nvim_buf_get_name(0)
+	local row = unpack(vim.api.nvim_win_get_cursor(0))
+	local command = ("pycharm --line " .. row .. " " .. path)
+	print(command)
+	os.execute(command)
+end, { desc = "[O]pen line in [P]yCharm" })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

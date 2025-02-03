@@ -25,4 +25,5 @@ return {
 	require("plugins.flash"),
 	require("plugins.pyrightimport"),
 	require("plugins.harpoon"),
+	require("plugins.ai-cmp"),
 }
