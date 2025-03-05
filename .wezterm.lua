@@ -268,6 +268,7 @@ local function setup_keys(cfg)
 		{ key = "S", mods = "LEADER", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
 		{ key = "C", mods = "LEADER", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
 		{ key = "D", mods = "LEADER", action = wezterm.action.SwitchToWorkspace({ name = "default" }) },
+		{ key = "T", mods = "LEADER", action = wezterm.action.SwitchToWorkspace({ name = "transport-service" }) },
 		{
 			key = "r",
 			mods = "LEADER",
@@ -340,6 +341,10 @@ local function setup_gui_startup()
 			services_pane:send_text("open-df-services; nvim\n")
 			services_tab:set_title("nvim")
 
+			local services_git_tab, df_git_pane, _ = services_window:spawn_tab({})
+			df_git_pane:send_text("cd ~/Desktop/DF_Repos/df-services; lazygit\n")
+			services_git_tab:set_title("git")
+
 			local services_server_tab, services_server_pane, _ = services_window:spawn_tab({})
 			services_server_pane:send_text("open-df-services\n")
 			services_server_tab:set_title("server")
@@ -352,9 +357,9 @@ local function setup_gui_startup()
 			services_alem_pane:send_text("open-df-services\n")
 			services_alem_tab:set_title("alem")
 
-			local services_git_tab, df_git_pane, _ = services_window:spawn_tab({})
-			df_git_pane:send_text("cd ~/Desktop/Apps_Team_Code/df-services; lazygit\n")
-			services_git_tab:set_title("git")
+			local services_term_tab, services_term_pane, _ = services_window:spawn_tab({})
+			services_term_pane:send_text("open-df-services\n")
+			services_term_tab:set_title("term")
 
 			-- Create "df-common" workspace
 			local common_tab, common_pane, common_window = mux.spawn_window({ workspace = "df-common" })
@@ -362,8 +367,26 @@ local function setup_gui_startup()
 			common_tab:set_title("nvim")
 
 			local common_git_tab, common_git_pane, _ = common_window:spawn_tab({})
-			common_git_pane:send_text("cd ~/Desktop/Apps_Team_Code/df-common; lazygit\n")
+			common_git_pane:send_text("cd ~/Desktop/DF_Repos/df-common; lazygit\n")
 			common_git_tab:set_title("git")
+
+			local common_term_tab, common_term_pane, _ = common_window:spawn_tab({})
+			common_term_pane:send_text("open-df-common\n")
+			common_term_tab:set_title("term")
+
+			-- Create "transport-service" workspace
+			local transport_service_tab, transport_service_pane, transport_service_window =
+				mux.spawn_window({ workspace = "transport-service" })
+			transport_service_pane:send_text("open-transport-service; nvim\n")
+			transport_service_tab:set_title("nvim")
+
+			local transport_service_git_tab, transport_service_git_pane, _ = transport_service_window:spawn_tab({})
+			transport_service_git_pane:send_text("cd ~/Desktop/DF_Repos/transport-service; lazygit\n")
+			transport_service_git_tab:set_title("git")
+
+			local transport_service_term_tab, transport_service_term_pane, _ = transport_service_window:spawn_tab({})
+			transport_service_term_pane:send_text("open-transport-service\n")
+			transport_service_term_tab:set_title("term")
 		end
 
 		mux.set_active_workspace("default")

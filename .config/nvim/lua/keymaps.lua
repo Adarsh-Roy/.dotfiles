@@ -5,7 +5,7 @@
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<leader>bl", "<cmd>cd %:p:h<CR>", { desc = "Change to [B]uffer [L]ocation" })
-vim.keymap.set("n", "<leader>by", "ggVGy", { desc = "[B]uffer [Y]ank" })
+vim.keymap.set("n", "<leader>by", "mq<cmd>%y<cr>'q<cmd>delm q<cr>", { desc = "[B]uffer [Y]ank" })
 vim.keymap.set("n", "<leader>bv", "ggVG", { desc = "[B]uffer [V]isual" })
 
 -- Navigation keymaps
