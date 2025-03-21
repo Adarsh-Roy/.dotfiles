@@ -8,7 +8,7 @@ local function setup_font(cfg)
 		"Symbols Nerd Font Mono",
 		"Noto Color Emoji",
 	})
-	cfg.font_size = 21
+	cfg.font_size = 17
 end
 
 local function setup_colors(cfg)
@@ -153,7 +153,7 @@ local function setup_tabs_status(cfg)
 		local ARROW_FOREGROUND = { Foreground = { Color = "#CBE0F0" } }
 		local prefix = ""
 
-		if window:leader_is_active() then
+		if window:leader_is_active() or window:active_key_table() then
 			prefix = " " .. utf8.char(0x26A1)
 			SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 		end
@@ -178,7 +178,6 @@ local function setup_keys(cfg)
 		cfg.default_prog = { "powershell.exe" }
 	end
 
-	-- We'll keep your entire key setup exactly as is:
 	cfg.keys = {}
 
 	-- CMD->CTRL on macOS
@@ -250,6 +249,7 @@ local function setup_keys(cfg)
 		cfg.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 2000 }
 	end
 
+	-- Define key mappings (removed multi-key bindings that used invalid strings)
 	local key_maps = {
 		{ key = "c", mods = "LEADER", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
 		{ key = "x", mods = "LEADER", action = wezterm.action.CloseCurrentTab({ confirm = true }) },
@@ -265,10 +265,13 @@ local function setup_keys(cfg)
 		{ key = "RightArrow", mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Right", 5 }) },
 		{ key = "UpArrow", mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Up", 5 }) },
 		{ key = "DownArrow", mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Down", 5 }) },
-		{ key = "S", mods = "LEADER", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
-		{ key = "C", mods = "LEADER", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
-		{ key = "D", mods = "LEADER", action = wezterm.action.SwitchToWorkspace({ name = "default" }) },
-		{ key = "T", mods = "LEADER", action = wezterm.action.SwitchToWorkspace({ name = "transport-service" }) },
+		-- Instead of invalid multi-key sequences like "ws", "wc", etc.,
+		-- use a key table: leader + "w" activates the workspace table.
+		{
+			key = "w",
+			mods = "LEADER",
+			action = wezterm.action.ActivateKeyTable({ name = "workspace", timeout_milliseconds = 2000 }),
+		},
 		{
 			key = "r",
 			mods = "LEADER",
@@ -314,6 +317,26 @@ local function setup_keys(cfg)
 			action = wezterm.action.PasteFrom("Clipboard"),
 		})
 	end
+
+	-- Define key tables for multi-key sequences.
+	-- The "workspace" table handles workspace switching.
+	-- For the three-key sequence (leader + w + t + s), we nest another key table.
+	cfg.key_tables = {
+		workspace = {
+			{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
+			{ key = "c", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
+			{ key = "d", action = wezterm.action.SwitchToWorkspace({ name = "default" }) },
+			{
+				key = "t",
+				action = wezterm.action.ActivateKeyTable({ name = "workspace_transport", timeout_milliseconds = 2000 }),
+			},
+			{ key = "Escape", action = wezterm.action.PopKeyTable },
+		},
+		workspace_transport = {
+			{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "transport-service" }) },
+			{ key = "Escape", action = wezterm.action.PopKeyTable },
+		},
+	}
 end
 
 local function setup_window(cfg)
