@@ -3,6 +3,7 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+	require("plugins.render-markdown"),
 	require("plugins.codecompanion"),
 	require("plugins.oil"),
 	require("plugins.vim-fugitive"),
