@@ -321,22 +321,37 @@ local function setup_keys(cfg)
 	-- Define key tables for multi-key sequences.
 	-- The "workspace" table handles workspace switching.
 	-- For the three-key sequence (leader + w + t + s), we nest another key table.
-	cfg.key_tables = {
-		workspace = {
-			{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
-			{ key = "c", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
-			{ key = "d", action = wezterm.action.SwitchToWorkspace({ name = "default" }) },
-			{
-				key = "t",
-				action = wezterm.action.ActivateKeyTable({ name = "workspace_transport", timeout_milliseconds = 2000 }),
+	-- Apple configuration
+	if wezterm.target_triple:find("apple%-darwin") then
+		cfg.key_tables = {
+			workspace = {
+				{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
+				{ key = "c", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
+				{ key = "d", action = wezterm.action.SwitchToWorkspace({ name = "default" }) },
+				{
+					key = "t",
+					action = wezterm.action.ActivateKeyTable({
+						name = "workspace_transport",
+						timeout_milliseconds = 2000,
+					}),
+				},
+				{ key = "Escape", action = wezterm.action.PopKeyTable },
 			},
-			{ key = "Escape", action = wezterm.action.PopKeyTable },
-		},
-		workspace_transport = {
-			{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "transport-service" }) },
-			{ key = "Escape", action = wezterm.action.PopKeyTable },
-		},
-	}
+			workspace_transport = {
+				{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "transport-service" }) },
+				{ key = "Escape", action = wezterm.action.PopKeyTable },
+			},
+		}
+	end
+
+	-- default workspaces with no tabs or pans configuration
+	cfg.key_tables = cfg.key_tables or { workspace = {} }
+	for i = 1, 4 do
+		table.insert(cfg.key_tables.workspace, {
+			key = tostring(i),
+			action = wezterm.action.SwitchToWorkspace({ name = "WS" .. tostring(i) }),
+		})
+	end
 end
 
 local function setup_window(cfg)
@@ -423,4 +438,6 @@ setup_keys(config)
 setup_window(config)
 setup_gui_startup()
 
+-- disable wayland unless the error is fixed
+config.enable_wayland = false
 return config
