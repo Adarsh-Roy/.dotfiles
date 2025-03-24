@@ -326,6 +326,7 @@ local function setup_keys(cfg)
 			{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
 			{ key = "c", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
 			{ key = "d", action = wezterm.action.SwitchToWorkspace({ name = "default" }) },
+			{ key = "e", action = wezterm.action.SwitchToWorkspace({ name = "df-embeddings" }) },
 			{
 				key = "t",
 				action = wezterm.action.ActivateKeyTable({ name = "workspace_transport", timeout_milliseconds = 2000 }),
@@ -410,6 +411,19 @@ local function setup_gui_startup()
 			local transport_service_term_tab, transport_service_term_pane, _ = transport_service_window:spawn_tab({})
 			transport_service_term_pane:send_text("open-transport-service\n")
 			transport_service_term_tab:set_title("term")
+
+			-- Create "df-embeddings" workspace
+			local embeddings_tab, embeddings_pane, embeddings_window = mux.spawn_window({ workspace = "df-embeddings" })
+			embeddings_pane:send_text("open-df-embeddings; nvim\n")
+			embeddings_tab:set_title("nvim")
+
+			local embeddings_git_tab, embeddings_git_pane, _ = embeddings_window:spawn_tab({})
+			embeddings_git_pane:send_text("cd ~/Desktop/DF_Repos/df-services; lazygit\n")
+			embeddings_git_tab:set_title("git")
+
+			local embeddings_server_tab, embeddings_server_pane, _ = embeddings_window:spawn_tab({})
+			embeddings_server_pane:send_text("open-df-embeddings\n")
+			embeddings_server_tab:set_title("server")
 		end
 
 		mux.set_active_workspace("default")
