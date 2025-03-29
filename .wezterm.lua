@@ -358,7 +358,7 @@ local function setup_window(cfg)
 	cfg.window_decorations = "RESIZE"
 	cfg.window_background_opacity = 0.83
 	cfg.macos_window_background_blur = 13
-	cfg.win32_system_backdrop = "Acrylic"
+	-- cfg.win32_system_backdrop = "Acrylic"
 	cfg.enable_tab_bar = true
 	cfg.hide_tab_bar_if_only_one_tab = false
 	cfg.tab_and_split_indices_are_zero_based = true
