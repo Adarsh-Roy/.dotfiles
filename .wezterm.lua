@@ -327,7 +327,6 @@ local function setup_keys(cfg)
 			workspace = {
 				{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
 				{ key = "c", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
-				{ key = "d", action = wezterm.action.SwitchToWorkspace({ name = "default" }) },
 				{
 					key = "t",
 					action = wezterm.action.ActivateKeyTable({
@@ -352,6 +351,10 @@ local function setup_keys(cfg)
 			action = wezterm.action.SwitchToWorkspace({ name = "WS" .. tostring(i) }),
 		})
 	end
+	table.insert(cfg.key_tables.workspace, {
+		key = "d",
+		action = wezterm.action.SwitchToWorkspace({ name = "default" }),
+	})
 end
 
 local function setup_window(cfg)
