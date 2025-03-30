@@ -2,12 +2,19 @@ return {
   "L3MON4D3/LuaSnip",
   enabled = true,
   opts = function(_, opts)
+    vim.keymap.set({ "i", "s" }, "<C-E>", function()
+      local ls = require("luasnip")
+      if ls.choice_active() then
+        ls.change_choice(1)
+      end
+    end, { desc = "Cycle through LuaSnip choices" })
     local ls = require("luasnip")
     local s = ls.snippet
     local t = ls.text_node
     local i = ls.insert_node
-    local f = ls.function_node
-    local fmta = require("luasnip.extras.fmt").fmta
+    local sn = ls.snippet_node
+    local c = ls.choice_node
+    local fmt = require("luasnip.extras.fmt").fmt
 
     -- Extend all snippet triggers with a semicolon prefix
     local extend_decorator = require("luasnip.util.extend_decorator")
@@ -25,58 +32,57 @@ return {
     })
     s = extend_decorator.apply(ls.s, {})
 
-    ------------------------------------------------------------
-    -- Competitive Programming Python Snippet (trigger: inpy)
-    --
-    -- Expands into a set of input methods:
-    --   def read_int():
-    --       return int(input())
-    --
-    --   def read_ints():
-    --       return list(map(int, input().split()))
-    --
-    --   def read_str():
-    --       return input().strip()
-    --
-    --   def read_strs():
-    --       return input().split()
-    ------------------------------------------------------------
-    local cp_py_snippet = s(
-      { trig = "inpy", dscr = "Python CP input methods" },
-      fmta(
-        [[
-def <>( ):
-    return int(input())
-
-def <>( ):
-    return list(map(int, input().split()))
-
-def <>( ):
-    return input().strip()
-
-def <>( ):
-    return input().split()
-]],
-        {
-          i(1, "read_int"),
-          i(2, "read_ints"),
-          i(3, "read_str"),
-          i(4, "read_strs"),
-        },
-        { delimiters = "<>" }
+    ------------------------------------------------------------------
+    --- Python
+    ------------------------------------------------------------------
+    local python_snippets = {}
+    table.insert(
+      python_snippets,
+      s(
+        { trig = "inpy", dscr = "Python CP input methods" },
+        t({
+          "def read_int():",
+          "    return int(input())",
+          "",
+          "def read_ints():",
+          "    return list(map(int, input().split()))",
+          "",
+          "def read_str():",
+          "    return input().strip()",
+          "",
+          "def read_strs():",
+          "    return input().split()",
+          "",
+        })
       )
     )
-
+    table.insert(
+      python_snippets,
+      s(
+        { trig = "telr", dscr = "Try/Except block with optional logging/raising" },
+        require("luasnip.extras.fmt").fmt(
+          [[
+try:
+    {}
+except Exception as e:
+    {}
+]],
+          {
+            -- Node 1: Editable try block
+            i(2),
+            -- Node 2: Choice node for the except block alternatives.
+            c(1, {
+              t('LOG.error(f"Error msg: {e}")'), -- Option 1: Log only.
+              t("raise e"), -- Option 2: Raise only.
+              t({ 'LOG.error(f"Error msg: {e}")', "    raise e" }), -- Option 3: Log then raise.
+            }),
+          }
+        )
+      )
+    )
+    ls.add_snippets("python", python_snippets)
     ------------------------------------------------------------
-    -- Markdown Code Block Snippets
-    --
-    -- For each common language, create a snippet that inserts a markdown
-    -- code block with the language as the fence. For example, triggering
-    -- "lua" will expand into:
-    --
-    -- ```lua
-    -- <cursor here>
-    -- ```
+    -- Markdown
     ------------------------------------------------------------
     local function create_code_block_snippet(lang)
       return s({ trig = lang, name = "Codeblock", desc = lang .. " codeblock" }, {
@@ -113,9 +119,6 @@ def <>( ):
     for _, lang in ipairs(languages) do
       table.insert(md_snippets, create_code_block_snippet(lang))
     end
-
-    -- Register the snippets for the respective filetypes
-    ls.add_snippets("python", { cp_py_snippet })
     ls.add_snippets("markdown", md_snippets)
 
     return opts
