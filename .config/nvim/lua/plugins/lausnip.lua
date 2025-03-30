@@ -2,35 +2,29 @@ return {
   "L3MON4D3/LuaSnip",
   enabled = true,
   opts = function(_, opts)
-    vim.keymap.set({ "i", "s" }, "<C-E>", function()
-      local ls = require("luasnip")
-      if ls.choice_active() then
-        ls.change_choice(1)
-      end
-    end, { desc = "Cycle through LuaSnip choices" })
     local ls = require("luasnip")
     local s = ls.snippet
     local t = ls.text_node
     local i = ls.insert_node
-    local sn = ls.snippet_node
     local c = ls.choice_node
-    local fmt = require("luasnip.extras.fmt").fmt
+    local f = ls.function_node
 
-    -- Extend all snippet triggers with a semicolon prefix
-    local extend_decorator = require("luasnip.util.extend_decorator")
-    local function auto_semicolon(context)
-      if type(context) == "string" then
-        return { trig = ";" .. context }
+    -----------------------------------------------------------
+    -- Keymaps
+    -----------------------------------------------------------
+    vim.keymap.set({ "i", "s" }, "<C-E>", function()
+      if ls.choice_active() then
+        ls.change_choice(1)
       end
-      return vim.tbl_extend("keep", { trig = ";" .. context.trig }, context)
+    end, { desc = "Cycle through LuaSnip choices" })
+
+    -----------------------------------------------------------
+    -- Helper methods
+    -----------------------------------------------------------
+    -- Get Clipboard
+    local function clipboard()
+      return vim.fn.getreg("+")
     end
-    extend_decorator.register(ls.s, {
-      arg_indx = 1,
-      extend = function(original)
-        return auto_semicolon(original)
-      end,
-    })
-    s = extend_decorator.apply(ls.s, {})
 
     ------------------------------------------------------------------
     --- Python
@@ -119,6 +113,17 @@ except Exception as e:
     for _, lang in ipairs(languages) do
       table.insert(md_snippets, create_code_block_snippet(lang))
     end
+
+    table.insert(
+      md_snippets,
+      s({ trig = "linkc", dscr = "Add clipboard link" }, {
+        t("["),
+        i(1),
+        t("]("),
+        f(clipboard, {}),
+        t(")"),
+      })
+    )
     ls.add_snippets("markdown", md_snippets)
 
     return opts
