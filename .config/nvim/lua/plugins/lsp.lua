@@ -6,6 +6,7 @@ return {
     servers = {
       pyright = {},
       ts_ls = {},
+      tinymist = {},
     },
   },
 }
