@@ -1,6 +1,20 @@
 -- since this is just an example spec, don't actually load anything here and return an empty spec
 -- stylua: ignore
-if true then return {{
+if true then return {
+{
+  "catppuccin/nvim",
+  opts = function (_, opts)
+    opts.flavour = "mocha"
+    opts.transparent_background = true
+  end
+},
+{
+  "LazyVim/LazyVim",
+  opts = {
+    colorscheme = "catppuccin",
+  },
+},
+{
   "folke/tokyonight.nvim",
   opts = function(_, opts)
     opts.transparent = true
