@@ -325,8 +325,9 @@ local function setup_keys(cfg)
 	if wezterm.target_triple:find("apple%-darwin") then
 		cfg.key_tables = {
 			workspace = {
-				{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
+				{ key = "b", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
 				{ key = "c", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
+				{ key = "f", action = wezterm.action.SwitchToWorkspace({ name = "df-client" }) },
 				{
 					key = "t",
 					action = wezterm.action.ActivateKeyTable({
@@ -402,6 +403,8 @@ local function setup_gui_startup()
 			services_term_pane:send_text("open-df-services\n")
 			services_term_tab:set_title("term")
 
+			services_tab:activate()
+
 			-- Create "df-common" workspace
 			local common_tab, common_pane, common_window = mux.spawn_window({ workspace = "df-common" })
 			common_pane:send_text("open-df-common; nvim\n")
@@ -414,6 +417,23 @@ local function setup_gui_startup()
 			local common_term_tab, common_term_pane, _ = common_window:spawn_tab({})
 			common_term_pane:send_text("open-df-common\n")
 			common_term_tab:set_title("term")
+
+			common_tab:activate()
+
+			-- Create "df-client" workspace
+			local client_tab, client_pane, client_window = mux.spawn_window({ workspace = "df-client" })
+			client_pane:send_text("cd ~/Desktop/DF_Repos/df-client; nvim\n")
+			client_tab:set_title("nvim")
+
+			local client_git_tab, client_git_pane, _ = client_window:spawn_tab({})
+			client_git_pane:send_text("cd ~/Desktop/DF_Repos/df-client; lazygit\n")
+			client_git_tab:set_title("git")
+
+			local client_term_tab, client_term_pane, _ = client_window:spawn_tab({})
+			client_term_pane:send_text("cd ~/Desktop/DF_Repos/df-client\n")
+			client_term_tab:set_title("term")
+
+			client_tab:activate()
 
 			-- Create "transport-service" workspace
 			local transport_service_tab, transport_service_pane, transport_service_window =
@@ -428,6 +448,8 @@ local function setup_gui_startup()
 			local transport_service_term_tab, transport_service_term_pane, _ = transport_service_window:spawn_tab({})
 			transport_service_term_pane:send_text("open-transport-service\n")
 			transport_service_term_tab:set_title("term")
+
+			transport_service_tab:activate()
 		end
 
 		mux.set_active_workspace("default")
