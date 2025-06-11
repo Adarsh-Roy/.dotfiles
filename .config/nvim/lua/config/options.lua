@@ -4,3 +4,4 @@
 
 -- Add file path at the top right
 vim.opt.winbar = "%=%m %f"
+vim.opt.colorcolumn = "80"

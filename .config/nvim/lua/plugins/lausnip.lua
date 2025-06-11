@@ -74,6 +74,22 @@ except Exception as e:
         )
       )
     )
+    table.insert(
+      python_snippets,
+      s(
+        { trig = "deprdoc", dscr = "Deprecate a function with docstring" },
+        require("luasnip.extras.fmt").fmt(
+          [[
+"""
+DEPRECATED: {}
+"""
+]],
+          {
+            i(0),
+          }
+        )
+      )
+    )
     ls.add_snippets("python", python_snippets)
     ------------------------------------------------------------
     -- Markdown
