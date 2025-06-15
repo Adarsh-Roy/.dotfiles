@@ -7,8 +7,11 @@ vim.keymap.set("n", "<leader>by", "mq<cmd>%y<cr><cmd>delm q<cr>", { desc = "Yank
 vim.keymap.set("n", "<leader>bv", "ggVG", { desc = "Yank Buffer" })
 
 -- Centered scrolling
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "zz<C-d>zz")
+vim.keymap.set("n", "<C-u>", "zz<C-u>zz")
+
+-- Replace a word with content in clipboard, without overwriting clipboard.
+vim.keymap.set("n", "<leader>rw", "viwP", { desc = "Replace Word" })
 
 -- Block insert in line visual mode
 vim.keymap.set("x", "I", function()

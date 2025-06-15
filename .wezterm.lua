@@ -8,7 +8,7 @@ local function setup_font(cfg)
 		"Symbols Nerd Font Mono",
 		"Noto Color Emoji",
 	})
-	cfg.font_size = 17
+	cfg.font_size = 22
 end
 
 local function setup_colors(cfg)
