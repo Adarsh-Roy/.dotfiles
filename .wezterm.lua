@@ -8,7 +8,7 @@ local function setup_font(cfg)
 		"Symbols Nerd Font Mono",
 		"Noto Color Emoji",
 	})
-	cfg.font_size = 22
+	cfg.font_size = 17
 end
 
 local function setup_colors(cfg)
@@ -325,6 +325,7 @@ local function setup_keys(cfg)
 	if wezterm.target_triple:find("apple%-darwin") then
 		cfg.key_tables = {
 			workspace = {
+				{ key = "n", action = wezterm.action.SwitchToWorkspace({ name = "notes" }) },
 				{ key = "b", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
 				{ key = "c", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
 				{ key = "f", action = wezterm.action.SwitchToWorkspace({ name = "df-client" }) },
@@ -378,6 +379,11 @@ local function setup_gui_startup()
 		local default_tab, default_pane, default_window = mux.spawn_window({ workspace = "default" })
 
 		if wezterm.target_triple:find("apple%-darwin") then
+			-- Create "notes" workspace
+			local notes_tab, notes_pane, notes_window = mux.spawn_window({ workspace = "notes" })
+			notes_pane:send_text("open-df-notes; nvim\n")
+			notes_tab:set_title("nvim")
+
 			-- Create "df-services" workspace
 			local services_tab, services_pane, services_window = mux.spawn_window({ workspace = "df-services" })
 			services_pane:send_text("open-df-services; nvim\n")

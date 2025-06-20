@@ -4,8 +4,7 @@
     "lazyvim.plugins.extras.coding.luasnip",
     "lazyvim.plugins.extras.coding.mini-surround",
     "lazyvim.plugins.extras.editor.harpoon2",
-    "lazyvim.plugins.extras.formatting.black",
-    "lazyvim.plugins.extras.lang.markdown"
+    "lazyvim.plugins.extras.formatting.black"
   ],
   "install_version": 8,
   "news": {
