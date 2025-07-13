@@ -90,6 +90,26 @@ DEPRECATED: {}
         )
       )
     )
+    table.insert(
+      python_snippets,
+      s(
+        { trig = "doc", dscr = "Add a function docstring" },
+        require("luasnip.extras.fmt").fmt(
+          [[
+"""
+{}
+
+Args:
+
+Returns:
+"""
+]],
+          {
+            i(0),
+          }
+        )
+      )
+    )
     ls.add_snippets("python", python_snippets)
     ------------------------------------------------------------
     -- Markdown
