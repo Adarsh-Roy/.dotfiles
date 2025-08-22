@@ -30,6 +30,7 @@
 - [x] ruff python conform
 - [x] snack QOL (explort in depth)
 - [x] the name of the file first, then the path in picker
+- [x] todo highlights
 - [ ] figure out how to fuzzy find with glob patterns, sub directories etc
 - [ ] neovim terminal flow (for gf etc, persistent terminal, etc)
 - [ ] optimize startup time by plugin lazying etc
@@ -43,7 +44,6 @@
 - [ ] typst snippets, like center align, etc
 - [ ] markdown headers should fold
 - [ ] more obsidian keymaps
-- [ ] todo highlights
 - [ ] better gutter icons
 - [ ] new buffer key map
 - [ ] be able to copy the diagnostic from the floating window
