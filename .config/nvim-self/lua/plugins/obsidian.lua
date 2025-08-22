@@ -25,7 +25,7 @@ return {
 				vim.keymap.set(
 					"x",
 					"<leader>oc",
-					[[:<C-U>'<,'>g/^/lua pcall(require('obsidian').util.toggle_checkbox)<CR>]],
+					[[:<C-U>'<,'>g/^/lua pcall(require('obsidian').util.toggle_checkbox)<CR>:noh<CR>]],
 					{ buffer = ev.buf, silent = true, desc = "Toggle checkbox (selection)" }
 				)
 			end,
