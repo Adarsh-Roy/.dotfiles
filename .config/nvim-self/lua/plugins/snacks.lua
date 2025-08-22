@@ -123,8 +123,8 @@ return {
 		-- Other
 		{ "<leader>z",  function() Snacks.zen() end,                          desc = "Toggle Zen Mode" },
 		{ "<leader>Z",  function() Snacks.zen.zoom() end,                     desc = "Toggle Zoom" },
-		{ "<leader>.",  function() Snacks.scratch() end,                      desc = "Toggle Scratch Buffer" },
-		{ "<leader>S",  function() Snacks.scratch.select() end,               desc = "Select Scratch Buffer" },
+		{ "<leader>..", function() Snacks.scratch() end,                      desc = "Toggle Scratch Buffer" },
+		{ "<leader>.s", function() Snacks.scratch.select() end,               desc = "Select Scratch Buffer" },
 		{ "<leader>n",  function() Snacks.notifier.show_history() end,        desc = "Notification History" },
 		{ "<leader>bd", function() Snacks.bufdelete() end,                    desc = "Delete Buffer" },
 		{ "<leader>bo", function() Snacks.bufdelete.other() end,              desc = "Delete Other Buffers" },
