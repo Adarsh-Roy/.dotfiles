@@ -19,6 +19,33 @@ return {
 		local icons = require("mini.icons")
 		icons.setup()
 		icons.mock_nvim_web_devicons()
+		local session = require("mini.sessions")
+		session.setup({
+			directory = vim.fn.stdpath("data") .. "/global_sessions",
+		})
+
+		vim.keymap.set("n", "<leader>Sl", function()
+			local local_file = (session.config.file ~= "" and session.config.file) or "Session.vim"
+			local uv = vim.uv or vim.loop
+			local cwd = uv.cwd()
+			local path = cwd .. "/" .. local_file
+			-- if no local session exists yet, create it once
+			if not uv.fs_stat(path) then
+				vim.cmd("silent! mksession! " .. vim.fn.fnameescape(local_file))
+			end
+			-- ensure the local session is active, then write
+			session.read(nil, { force = false, verbose = false })
+			session.write(nil)
+		end, { desc = "Save Session (local)" })
+
+		vim.keymap.set("n", "<leader>Sa", function()
+			vim.ui.input({ prompt = "Session name: " }, function(name)
+				if name and #name > 0 then
+					session.write(name) -- writes to `directory`
+				end
+			end)
+		end, { desc = "Save Session As…" })
+
 		require("mini.tabline").setup()
 		require("mini.ai").setup({
 			n_lines = 200
