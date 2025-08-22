@@ -52,6 +52,10 @@ return {
 		styles = {
 			notification = {
 				wo = { wrap = true }
+			},
+			lazygit = {
+				width = 0,
+				height = 0
 			}
 		}
 	},

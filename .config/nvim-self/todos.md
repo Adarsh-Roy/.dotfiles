@@ -24,11 +24,7 @@
 - [x] how many lines are visually selected currently
 - [x] sessions
 - [x] fatal error when it's not part of any git repo, it should just not be visible in that case
-- [ ] lazygit floating window should take up the entire space
-- [ ] diffview
-    - [ ] how to merge all non conflicting ones ?
-    - [ ] how to make it so that ours, local, theirs is always visible
-    - [ ] how to customize the default window sizes
+- [x] lazygit floating window should take up the entire space
 # long term
 - [x] close all other buffer
 - [x] ruff python conform
@@ -40,6 +36,10 @@
 - [ ] arrow/harpoon
 - [ ] octo
 - [ ] increase height of ivy
+- [ ] diffview
+    - [ ] how to merge all non conflicting ones ? -> they are already merged, find out how to not
+    - [ ] how to make it so that ours, local, theirs is always visible
+    - [ ] how to customize the default window sizes
 - [ ] typst snippets, like center align, etc
 - [ ] markdown headers should fold
 - [ ] more obsidian keymaps
