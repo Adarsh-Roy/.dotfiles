@@ -10,14 +10,9 @@ return {
 		require("obsidian").setup {
 			legacy_commands = false,
 			workspaces = {
-				{
-					name = "dragonfruit",
-					path = "~/Obsidian/Dragonfruit/DragonfruitVault/",
-				},
-				{
-					name = "professional",
-					path = "~/Obsidian/Professional/ObsidianProfessionalVault/",
-				},
+				{ name = "dragonfruit",  path = "~/Obsidian/Dragonfruit/DragonfruitVault/", },
+				{ name = "professional", path = "~/Obsidian/Professional/ObsidianProfessionalVault/", },
+				{ name = "pengvim",      path = "~/Personal/Pengvim/PengvimVault/", },
 			},
 		}
 		vim.api.nvim_create_autocmd("FileType", {
