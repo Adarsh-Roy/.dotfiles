@@ -3,12 +3,13 @@
 -- Add any additional keymaps here
 
 -- Buffer yank and select
-vim.keymap.set("n", "<leader>by", "mq<cmd>%y<cr><cmd>delm q<cr>", { desc = "Yank Buffer" })
-vim.keymap.set("n", "<leader>bv", "ggVG", { desc = "Yank Buffer" })
+vim.keymap.set("n", "<leader>by", "mq<cmd>%y<cr><cmd>delm q<cr>", { desc = "Buffer Yank " })
+vim.keymap.set("n", "<leader>bv", "goVG", { desc = "Buffer Visual" })
+vim.keymap.set("n", "<leader>br", "goVGP", { desc = "Buffer Replace" })
 
 -- Centered scrolling
-vim.keymap.set("n", "<C-d>", "zz<C-d>zz")
-vim.keymap.set("n", "<C-u>", "zz<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- Replace a word with content in clipboard, without overwriting clipboard.
 vim.keymap.set("n", "<leader>rw", "viwP", { desc = "Replace Word" })
@@ -20,3 +21,6 @@ end, { expr = true })
 vim.keymap.set("x", "A", function()
   return vim.fn.mode() == "V" and "$<C-v>A" or "A"
 end, { expr = true })
+
+-- Exit terminal mode with Esc twice
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

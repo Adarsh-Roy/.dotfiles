@@ -2,6 +2,7 @@ return {
   "L3MON4D3/LuaSnip",
   enabled = true,
   opts = function(_, opts)
+    opts.enable_autosnippets = true
     local ls = require("luasnip")
     local s = ls.snippet
     local t = ls.text_node
@@ -35,17 +36,12 @@ return {
       s(
         { trig = "inpy", dscr = "Python CP input methods" },
         t({
-          "def read_int():",
-          "    return int(input())",
-          "",
-          "def read_ints():",
-          "    return list(map(int, input().split()))",
-          "",
-          "def read_str():",
-          "    return input().strip()",
-          "",
-          "def read_strs():",
-          "    return input().split()",
+          "import sys",
+          "input = sys.stdin.readline",
+          "def inint() -> int: return int(input())",
+          "def instr() -> str: return input().strip()",
+          "def inintlist() -> list[int]: return list(map(int, input().split()))",
+          "def instrlist() -> list[str]: return input().split()",
           "",
         })
       )
@@ -111,11 +107,33 @@ Returns:
       )
     )
     ls.add_snippets("python", python_snippets)
+
     ------------------------------------------------------------
-    -- Markdown
+    -- Typst
+    ------------------------------------------------------------
+    local typst_snippets = {}
+    table.insert(
+      typst_snippets,
+      s({ trig = "mt", dscr = "Math inline shortcut", snippetType = "autosnippet" }, {
+        t("$"),
+        i(1),
+        t("$"),
+      })
+    )
+    table.insert(
+      typst_snippets,
+      s({ trig = "mmt", dscr = "Math multiline block", snippetType = "autosnippet" }, {
+        t({ "$", "" }),
+        i(1),
+        t({ "", "$" }),
+      })
+    )
+
+    ------------------------------------------------------------
+    -- Coding blocks are common to typst and markdown
     ------------------------------------------------------------
     local function create_code_block_snippet(lang)
-      return s({ trig = lang, name = "Codeblock", desc = lang .. " codeblock" }, {
+      return s({ trig = lang, name = "Codeblock", dscr = lang .. " codeblock" }, {
         t({ "```" .. lang, "" }),
         i(1),
         t({ "", "```" }),
@@ -145,10 +163,15 @@ Returns:
       "templ",
       "php",
     }
+    ------------------------------------------------------------
+    -- Markdown
+    ------------------------------------------------------------
     local md_snippets = {}
     for _, lang in ipairs(languages) do
       table.insert(md_snippets, create_code_block_snippet(lang))
+      table.insert(typst_snippets, create_code_block_snippet(lang))
     end
+    ls.add_snippets("typst", typst_snippets)
 
     table.insert(
       md_snippets,

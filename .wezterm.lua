@@ -8,7 +8,7 @@ local function setup_font(cfg)
 		"Symbols Nerd Font Mono",
 		"Noto Color Emoji",
 	})
-	cfg.font_size = 22
+	cfg.font_size = 17
 end
 
 local function setup_colors(cfg)
@@ -325,7 +325,6 @@ local function setup_keys(cfg)
 	if wezterm.target_triple:find("apple%-darwin") then
 		cfg.key_tables = {
 			workspace = {
-				{ key = "n", action = wezterm.action.SwitchToWorkspace({ name = "notes" }) },
 				{ key = "b", action = wezterm.action.SwitchToWorkspace({ name = "df-services" }) },
 				{ key = "c", action = wezterm.action.SwitchToWorkspace({ name = "df-common" }) },
 				{ key = "f", action = wezterm.action.SwitchToWorkspace({ name = "df-client" }) },
@@ -336,10 +335,34 @@ local function setup_keys(cfg)
 						timeout_milliseconds = 2000,
 					}),
 				},
+				{
+					key = "n",
+					action = wezterm.action.ActivateKeyTable({
+						name = "workspace_notes",
+						timeout_milliseconds = 2000,
+					}),
+				},
+				{
+					key = "m",
+					action = wezterm.action.ActivateKeyTable({
+						name = "workspace_ml",
+						timeout_milliseconds = 2000,
+					}),
+				},
 				{ key = "Escape", action = wezterm.action.PopKeyTable },
 			},
 			workspace_transport = {
 				{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "transport-service" }) },
+				{ key = "Escape", action = wezterm.action.PopKeyTable },
+			},
+			workspace_notes = {
+				{ key = "d", action = wezterm.action.SwitchToWorkspace({ name = "notes-dragonfruit" }) },
+				{ key = "p", action = wezterm.action.SwitchToWorkspace({ name = "notes-professional" }) },
+				{ key = "Escape", action = wezterm.action.PopKeyTable },
+			},
+			workspace_ml = {
+				{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "ml-scripts" }) },
+				{ key = "v", action = wezterm.action.SwitchToWorkspace({ name = "ml-validation-tools" }) },
 				{ key = "Escape", action = wezterm.action.PopKeyTable },
 			},
 		}
@@ -379,19 +402,21 @@ local function setup_gui_startup()
 		local default_tab, default_pane, default_window = mux.spawn_window({ workspace = "default" })
 
 		if wezterm.target_triple:find("apple%-darwin") then
-			-- Create "notes" workspace
-			local notes_tab, notes_pane, notes_window = mux.spawn_window({ workspace = "notes" })
-			notes_pane:send_text("open-df-notes; nvim\n")
-			notes_tab:set_title("nvim")
+			-- Create "notes-dragonfruit" workspace
+			local df_notes_tab, df_notes_pane, df_notes_window = mux.spawn_window({ workspace = "notes-dragonfruit" })
+			df_notes_pane:send_text("open-df-notes\n")
+			df_notes_tab:set_title("nvim")
+
+			-- Create "notes-professional" workspace
+			local professional_notes_tab, professional_notes_pane, professional_notes_window =
+				mux.spawn_window({ workspace = "notes-professional" })
+			professional_notes_pane:send_text("open-pro-notes\n")
+			professional_notes_tab:set_title("nvim")
 
 			-- Create "df-services" workspace
 			local services_tab, services_pane, services_window = mux.spawn_window({ workspace = "df-services" })
-			services_pane:send_text("open-df-services; nvim\n")
+			services_pane:send_text("open-df-services\n")
 			services_tab:set_title("nvim")
-
-			local services_git_tab, df_git_pane, _ = services_window:spawn_tab({})
-			df_git_pane:send_text("cd ~/Desktop/DF_Repos/df-services; lazygit\n")
-			services_git_tab:set_title("git")
 
 			local services_server_tab, services_server_pane, _ = services_window:spawn_tab({})
 			services_server_pane:send_text("open-df-services\n")
@@ -411,14 +436,21 @@ local function setup_gui_startup()
 
 			services_tab:activate()
 
+			-- Create "ml-scripts" workspace
+			local ml_scripts_tab, ml_scripts_pane, ml_scripts_window = mux.spawn_window({ workspace = "ml-scripts" })
+			ml_scripts_pane:send_text("cd ~/Desktop/DF_Repos/df-clm-scripts\n")
+			ml_scripts_tab:set_title("nvim")
+
+			-- Create "ml-scripts" workspace
+			local ml_validation_tools_tab, ml_validation_tools_pane, ml_validation_tools_window =
+				mux.spawn_window({ workspace = "ml-validation-tools" })
+			ml_validation_tools_pane:send_text("cd ~/Desktop/DF_Repos/df-validation-tools\n")
+			ml_validation_tools_tab:set_title("nvim")
+
 			-- Create "df-common" workspace
 			local common_tab, common_pane, common_window = mux.spawn_window({ workspace = "df-common" })
-			common_pane:send_text("open-df-common; nvim\n")
+			common_pane:send_text("open-df-common\n")
 			common_tab:set_title("nvim")
-
-			local common_git_tab, common_git_pane, _ = common_window:spawn_tab({})
-			common_git_pane:send_text("cd ~/Desktop/DF_Repos/df-common; lazygit\n")
-			common_git_tab:set_title("git")
 
 			local common_term_tab, common_term_pane, _ = common_window:spawn_tab({})
 			common_term_pane:send_text("open-df-common\n")
@@ -428,12 +460,8 @@ local function setup_gui_startup()
 
 			-- Create "df-client" workspace
 			local client_tab, client_pane, client_window = mux.spawn_window({ workspace = "df-client" })
-			client_pane:send_text("cd ~/Desktop/DF_Repos/df-client; nvim\n")
+			client_pane:send_text("cd ~/Desktop/DF_Repos/df-client\n")
 			client_tab:set_title("nvim")
-
-			local client_git_tab, client_git_pane, _ = client_window:spawn_tab({})
-			client_git_pane:send_text("cd ~/Desktop/DF_Repos/df-client; lazygit\n")
-			client_git_tab:set_title("git")
 
 			local client_term_tab, client_term_pane, _ = client_window:spawn_tab({})
 			client_term_pane:send_text("cd ~/Desktop/DF_Repos/df-client\n")
@@ -444,12 +472,8 @@ local function setup_gui_startup()
 			-- Create "transport-service" workspace
 			local transport_service_tab, transport_service_pane, transport_service_window =
 				mux.spawn_window({ workspace = "transport-service" })
-			transport_service_pane:send_text("open-transport-service; nvim\n")
+			transport_service_pane:send_text("open-transport-service\n")
 			transport_service_tab:set_title("nvim")
-
-			local transport_service_git_tab, transport_service_git_pane, _ = transport_service_window:spawn_tab({})
-			transport_service_git_pane:send_text("cd ~/Desktop/DF_Repos/transport-service; lazygit\n")
-			transport_service_git_tab:set_title("git")
 
 			local transport_service_term_tab, transport_service_term_pane, _ = transport_service_window:spawn_tab({})
 			transport_service_term_pane:send_text("open-transport-service\n")

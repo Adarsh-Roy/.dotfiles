@@ -25,8 +25,10 @@ return {
         name = "dragonfruit",
         path = "~/Obsidian/Dragonfruit/DragonfruitVault/",
       },
+      {
+        name = "professional",
+        path = "~/Obsidian/Professional/ObsidianProfessionalVault/",
+      },
     },
-
-    -- see below for full list of options 👇
   },
 }
