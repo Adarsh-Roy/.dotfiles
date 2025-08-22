@@ -99,3 +99,6 @@ alias rdfsl='cd /Users/adarsh/Desktop/DF_Repos/df-services && \
   ANALYTICS_POSTGRES_USERNAME=$ANALYTICS_POSTGRES_USERNAME_LOCAL \
   ANALYTICS_POSTGRES_PASSWORD=$ANALYTICS_POSTGRES_PASSWORD_LOCAL \
   flask run'
+
+# zoxide
+eval "$(zoxide init zsh)"
