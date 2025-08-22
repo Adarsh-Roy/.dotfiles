@@ -82,53 +82,53 @@ return {
 				active = function()
 					local mode = MiniStatusline.section_mode({ trunc_width = math.huge })
 
-					-- Build git segment from gitsigns' buffer dict
+					-- Build git segment from gitsigns buffer vars (no shell calls)
 					local function git_segment()
 						local g = vim.b.gitsigns_status_dict
-						if not g or not g.head then
-							-- fallback: just branch (from gitsigns_head or git)
-							local head = vim.b.gitsigns_head
-							if not head or head == "" then
-								local cwd = vim.fn.fnameescape(vim.fn.expand("%:p:h"))
-								head = (vim.fn.systemlist("git -C " .. cwd .. " rev-parse --abbrev-ref HEAD")[1] or "")
-							end
-							return (head and head ~= "") and (" " .. head) or ""
+						local head = (g and g.head) or vim.b.gitsigns_head
+						if not head or head == "" then
+							return "" -- not a repo: return empty so caller can skip the block
 						end
 
-						-- Format counts if present
-						local parts   = { " " .. g.head }
-						local added   = tonumber(g.added) or 0
-						local changed = tonumber(g.changed) or 0
-						local removed = tonumber(g.removed) or 0
-						if added > 0 or changed > 0 or removed > 0 then
-							local diffs = {}
-							if added > 0 then table.insert(diffs, "+" .. added) end
-							if changed > 0 then table.insert(diffs, "~" .. changed) end
-							if removed > 0 then table.insert(diffs, "-" .. removed) end
-							table.insert(parts, table.concat(diffs, " "))
+						-- No trailing spaces: join parts with single spaces and never append a space
+						local parts = { "    " .. head }
+						if g then
+							local diffs   = {}
+							local added   = tonumber(g.added) or 0
+							local changed = tonumber(g.changed) or 0
+							local removed = tonumber(g.removed) or 0
+							if added > 0 then diffs[#diffs + 1] = "+" .. added end
+							if changed > 0 then diffs[#diffs + 1] = "~" .. changed end
+							if removed > 0 then diffs[#diffs + 1] = "-" .. removed end
+							if #diffs > 0 then parts[#parts + 1] = table.concat(diffs, " ") end
 						end
 						return table.concat(parts, " ")
 					end
 
 					local filename = MiniStatusline.section_filename({ trunc_width = 200 })
 					local metrics  = visual_metrics()
+					local git      = git_segment()
 
 					local groups   = {
 						{ hl = "MiniStatuslineModeNormal", strings = { mode } },
-						{ hl = "MiniStatuslineDevinfo",    strings = { git_segment() } },
-						{ strings = { "%<" } },
-						{ hl = "MiniStatuslineFilename",   strings = { filename } },
-
-						-- right side split + ensure filler uses default hl
-						{ strings = { "%#StatusLine#" } },
-						{ strings = { "%=" } },
 					}
 
-					if metrics ~= "" then
-						table.insert(groups, {
-							strings = { "%#MiniStatuslineFileinfo# " .. metrics .. " %#StatusLine#" },
-						})
+					-- Only add the git block when we have content (mirrors your metrics gating)
+					if git ~= "" then
+						table.insert(groups, { hl = "MiniStatuslineDevinfo", strings = { git } })
 					end
+
+					table.insert(groups, { strings = { "%<" } })
+					table.insert(groups, { hl = "MiniStatuslineFilename", strings = { filename } })
+
+					-- right side
+					table.insert(groups, { strings = { "%#StatusLine#" } })
+					table.insert(groups, { strings = { "%=" } })
+
+					if metrics ~= "" then
+						table.insert(groups, { strings = { "%#MiniStatuslineFileinfo# " .. metrics .. " %#StatusLine#" } })
+					end
+
 					return MiniStatusline.combine_groups(groups)
 				end,
 

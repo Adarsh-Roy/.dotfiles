@@ -22,7 +22,8 @@
 - [x] search references
 - [x] fix notifications, not saved one is not showing up above, see how lazyvim does it
 - [x] how many lines are visually selected currently
-- [ ] fatal error when it's not part of any git repo, it should just not be visible in that case
+- [x] sessions
+- [x] fatal error when it's not part of any git repo, it should just not be visible in that case
 - [ ] lazygit floating window should take up the entire space
 - [ ] diffview
     - [ ] how to merge all non conflicting ones ?
