@@ -46,6 +46,7 @@
 - [ ] more obsidian keymaps
 - [ ] better gutter icons
 - [ ] new buffer key map
+- [ ] jump to next diagnostic with ]x instead of ]d to make things consistent
 - [ ] be able to copy the diagnostic from the floating window
 - [ ] dial.nvim
 - [ ] where is the mapping <Space>gO coming from ?
