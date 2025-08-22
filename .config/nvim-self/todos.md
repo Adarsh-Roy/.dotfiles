@@ -1,0 +1,50 @@
+# eseential to switch
+- [x] preview, mainly typst, but other things as well
+- [x] icons for diagnostics in the column
+- [x] line floating diagnostics
+- [x] oil <C-v> should be vertical split, and <C-s> should be save
+- [x] remove lazy notif everytime
+- [x] bufline, with H, L keymaps
+- [x] color of current line should be different
+- [x] luasnip
+- [x] current line number highlighted
+- [x] mini QOL
+    - [x] ai
+    - [x] surround
+    - [x] operators
+- [x] which-key on the side instead of bottom
+- [x] snacks picker in ivy mode from the bottom
+- [x] inline diagnostics
+- [x] statusline
+- [x] command to exit out of oil
+- [x] grug far
+- [x] make normal search smart, all lower case matches everything, mixed matches case wise
+- [x] search references
+- [x] fix notifications, not saved one is not showing up above, see how lazyvim does it
+- [x] how many lines are visually selected currently
+- [ ] fatal error when it's not part of any git repo, it should just not be visible in that case
+- [ ] lazygit floating window should take up the entire space
+- [ ] diffview
+    - [ ] how to merge all non conflicting ones ?
+    - [ ] how to make it so that ours, local, theirs is always visible
+    - [ ] how to customize the default window sizes
+# long term
+- [x] close all other buffer
+- [x] ruff python conform
+- [x] snack QOL (explort in depth)
+- [x] the name of the file first, then the path in picker
+- [ ] figure out how to fuzzy find with glob patterns, sub directories etc
+- [ ] neovim terminal flow (for gf etc, persistent terminal, etc)
+- [ ] optimize startup time by plugin lazying etc
+- [ ] arrow/harpoon
+- [ ] octo
+- [ ] increase height of ivy
+- [ ] typst snippets, like center align, etc
+- [ ] markdown headers should fold
+- [ ] more obsidian keymaps
+- [ ] todo highlights
+- [ ] better gutter icons
+- [ ] new buffer key map
+- [ ] be able to copy the diagnostic from the floating window
+- [ ] dial.nvim
+- [ ] where is the mapping <Space>gO coming from ?
