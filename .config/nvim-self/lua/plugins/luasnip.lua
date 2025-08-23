@@ -157,7 +157,6 @@ Returns:
 	-- blink.cmp integration
 	{
 		"saghen/blink.cmp",
-		version = "1.*",
 		opts = {
 			-- use LuaSnip as the snippet engine
 			snippets = { preset = "luasnip" }, -- ensures expand/active/jump are wired to LuaSnip
