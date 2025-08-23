@@ -69,6 +69,9 @@ function y() {
   rm -f -- "$tmp"
 }
 
+# Misc. aliases
+alias lg='lazygit'
+
 # Bare git repository for managing dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias lgcfg='lazygit --git-dir=$HOME/.cfg/ --work-tree=$HOME'
