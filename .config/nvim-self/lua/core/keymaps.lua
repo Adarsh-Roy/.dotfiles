@@ -19,9 +19,9 @@ vim.keymap.set("n", "<leader>xf", function()
 		scope = "line",
 		border = "rounded",
 		source = "if_many",
-		focusable = false,
+		focusable = true,
 	})
-end, { desc = "Trouble Flaot" })
+end, { desc = "Trouble Float" })
 
 -- Block insert in line visual mode
 vim.keymap.set("x", "I", function()
@@ -42,4 +42,4 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 -- General
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr>")
-vim.keymap.set("n", "<leader>ww", "<cmd>qa<cr>", { desc = "Quit all" })
+vim.keymap.set("n", "<leader>w ", "<cmd>qa<cr>", { desc = "Quit all" })

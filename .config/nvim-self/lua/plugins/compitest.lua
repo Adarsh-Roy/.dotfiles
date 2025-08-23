@@ -1,5 +1,6 @@
 return {
 	"xeluxee/competitest.nvim",
+	lazy = true,
 	dependencies = { "MunifTanjim/nui.nvim" },
 	config = function()
 		require("competitest").setup({

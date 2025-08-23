@@ -32,6 +32,8 @@
 - [x] snack QOL (explort in depth)
 - [x] the name of the file first, then the path in picker
 - [x] todo highlights
+- [x] new buffer key map
+- [x] be able to copy the diagnostic from the floating window
 - [ ] figure out how to fuzzy find with glob patterns, sub directories etc
 - [ ] neovim terminal flow (for gf etc, persistent terminal, etc)
 - [ ] optimize startup time by plugin lazying etc
@@ -46,8 +48,6 @@
 - [ ] markdown headers should fold
 - [ ] more obsidian keymaps
 - [ ] better gutter icons
-- [ ] new buffer key map
 - [ ] jump to next diagnostic with ]x instead of ]d to make things consistent
-- [ ] be able to copy the diagnostic from the floating window
 - [ ] dial.nvim
 - [ ] where is the mapping <Space>gO coming from ?

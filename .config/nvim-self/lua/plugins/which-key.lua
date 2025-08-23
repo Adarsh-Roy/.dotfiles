@@ -31,13 +31,18 @@ return {
 					return require("which-key.extras").expand.win()
 				end,
 			},
-			{ "<leader>s",  group = "Search" },
-			{ "<leader>f",  group = "Find" },
-			{ "<leader>g",  group = "Git" },
-			{ "<leader>u",  group = "UI" },
-			{ "<leader>x",  group = "Trouble" },
-			{ "<leader>p",  group = "Preview" },
-			{ "<leader>g/", group = "Split/Join" },
+			{ "<leader>s", group = "Search" },
+			{ "<leader>S", group = "Session" },
+			{ "<leader>c", group = "Code/LSP" },
+			{ "<leader>f", group = "Find" },
+			{ "<leader>g", group = "Git" },
+			{ "<leader>u", group = "UI" },
+			{ "<leader>x", group = "Trouble" },
+			{ "<leader>p", group = "Preview" },
+			{ "<leader>;", group = "CompetiTest" },
+			{ "<leader>.", group = "Scratch" },
+			{ "g/",        group = "Split/Join" },
+			{ "gs",        group = "Surround" },
 		})
 	end
 }

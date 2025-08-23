@@ -1,10 +1,11 @@
 return {
 	"sylvanfranklin/omni-preview.nvim",
+	lazy = true,
 	dependencies = {
 		-- Typst
 		{ 'chomosuke/typst-preview.nvim', lazy = true },
 		-- CSV
-		{ 'hat0uma/csvview.nvim',         lazy = true,  opts = { delimiter = ",", quote_char = "" } },
+		{ 'hat0uma/csvview.nvim',         lazy = true, opts = { delimiter = ",", quote_char = "" } },
 	},
 	opts = {},
 	keys = {

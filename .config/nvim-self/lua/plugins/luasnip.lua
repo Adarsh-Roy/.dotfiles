@@ -1,7 +1,4 @@
 return {
-	-- ensure other snippet engines aren't enabled
-	{ "garymjr/nvim-snippets", enabled = false },
-
 	-- LuaSnip + your snippets
 	{
 		"L3MON4D3/LuaSnip",

@@ -1,6 +1,6 @@
 return { {
 	'stevearc/oil.nvim',
-	lazy = false,
+	lazy = true,
 	---@module 'oil'
 	keys = {
 		{ "-", function() require("oil").toggle_float() end, desc = "Open Oil in Floating Window" }
