@@ -34,8 +34,12 @@ return {
 			------------------------------------------------------------------
 			-- cycle choices in choice nodes
 			vim.keymap.set({ "i", "s" }, "<C-E>", function()
-				if ls.choice_active() then ls.change_choice(1) end
-			end, { desc = "LuaSnip: cycle choice" })
+				if ls.choice_active() then
+					ls.change_choice(1)
+				elseif ls.expand_or_jumpable() then
+					ls.expand_or_jump()
+				end
+			end, { desc = "Expand or Next Choice" })
 
 			-- keep snippet jumping smooth in select-mode (blink handles <Tab> in insert mode)
 			vim.keymap.set("s", "<Tab>", function() if ls.jumpable(1) then ls.jump(1) end end, { silent = true })
@@ -150,21 +154,13 @@ Returns:
 		end,
 	},
 
-	-- blink.cmp integration (no nvim-cmp)
+	-- blink.cmp integration
 	{
 		"saghen/blink.cmp",
 		version = "1.*",
 		opts = {
 			-- use LuaSnip as the snippet engine
 			snippets = { preset = "luasnip" }, -- ensures expand/active/jump are wired to LuaSnip
-			-- keep snippet suggestions
-			sources = { default = { "lsp", "path", "snippets", "buffer" } },
-			-- tab jumps through snippet fields; shift-tab goes backward
-			keymap = {
-				preset      = "default",
-				["<Tab>"]   = { "snippet_forward", "fallback" },
-				["<S-Tab>"] = { "snippet_backward", "fallback" },
-			},
 		},
 	},
 }
