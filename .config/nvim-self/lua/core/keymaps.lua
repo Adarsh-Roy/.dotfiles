@@ -9,10 +9,6 @@ vim.keymap.set("n", "<leader>bnv", "<cmd>vnew<cr>", { desc = "New Buffer (Veritc
 vim.keymap.set("n", "H", "<cmd>bprev<cr>", { desc = "Previous Buffer" })
 vim.keymap.set("n", "L", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
--- Centered scrolling
-vim.keymap.set("n", "<C-d>", "zz<C-d>zz")
-vim.keymap.set("n", "<C-u>", "zz<C-u>zz")
-
 -- Floating diagnostic window
 vim.keymap.set("n", "<leader>xf", function()
 	vim.diagnostic.open_float(nil, {
@@ -32,11 +28,15 @@ vim.keymap.set("x", "A", function()
 end, { expr = true })
 
 
--- Window navigation
+-- Navigation
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 
 -- General
