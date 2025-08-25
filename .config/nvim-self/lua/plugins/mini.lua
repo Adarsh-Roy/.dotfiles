@@ -11,11 +11,28 @@ local function visual_metrics()
 
 	return string.format("%dL %dW %dC", lines, words, chars)
 end
-
+local function macro_status()
+	local rec = vim.fn.reg_recording()
+	if rec ~= "" then
+		return ("REC @%s"):format(rec) -- e.g. "REC @q"
+	end
+	-- Optional: also show when a macro is playing back
+	local exec = vim.fn.reg_executing()
+	if exec ~= "" then
+		return ("PLAY @%s"):format(exec)
+	end
+	return ""
+end
 return {
 	'echasnovski/mini.nvim',
 	version = '*',
 	config = function()
+		vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+			callback = function()
+				-- schedule avoids “not allowed here” in some edge cases
+				vim.schedule(function() vim.cmd("redrawstatus") end)
+			end,
+		})
 		require("mini.splitjoin").setup({
 			mappings = {
 				toggle = 'g//',
@@ -127,6 +144,7 @@ return {
 
 					local filename = MiniStatusline.section_filename({ trunc_width = 200 })
 					local metrics  = visual_metrics()
+					local macro    = macro_status()
 					local git      = git_segment()
 
 					local groups   = {
@@ -147,6 +165,9 @@ return {
 
 					if metrics ~= "" then
 						table.insert(groups, { strings = { "%#MiniStatuslineFileinfo# " .. metrics .. " %#StatusLine#" } })
+					end
+					if macro ~= "" then
+						table.insert(groups, { hl = "MiniStatuslineDevinfo", strings = { " " .. macro } })
 					end
 
 					return MiniStatusline.combine_groups(groups)

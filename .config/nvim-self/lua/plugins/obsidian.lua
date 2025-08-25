@@ -7,7 +7,8 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	config = function()
-		require("obsidian").setup {
+		local obsi = require("obsidian")
+		obsi.setup {
 			legacy_commands = false,
 			workspaces = {
 				{ name = "dragonfruit",  path = "~/Obsidian/Dragonfruit/DragonfruitVault/", },
@@ -20,7 +21,7 @@ return {
 			callback = function(ev)
 				-- Normal: toggle the current line
 				vim.keymap.set('n', "<leader>oc", function()
-					require("obsidian").util.toggle_checkbox()
+					obsi.util.toggle_checkbox()
 				end, { buffer = ev.buf, desc = "Toggle checkbox" })
 				vim.keymap.set(
 					"x",
