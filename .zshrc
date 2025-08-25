@@ -80,11 +80,18 @@ alias lgcfg='lazygit --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias open-pro-notes='cd ~/Obsidian/Professional/ObsidianProfessionalVault/'
 
 # Dragonfruit
+
 alias alem='alembic --config "app_alembic.ini"'
-alias open-df-services='cd ~/Desktop/DF_Repos/df-services/'
-alias open-df-common='cd ~/Desktop/DF_Repos/df-common/'
+alias open-df-services='cd ~/Desktop/DF_Repos/df-services/; conda activate df-services'
+alias open-df-common='cd ~/Desktop/DF_Repos/df-common/; conda activate df-services'
 alias open-transport-service='cd ~/Desktop/DF_Repos/transport-service/'
 alias open-df-notes='cd ~/Obsidian/Dragonfruit/DragonfruitVault/'
+
+## aws
+export AWS_PROFILE=aws-stage
+alias awslogin="aws sso login --profile aws-stage"
+
+## flask server
 
 alias rdfss='cd /Users/adarsh/Desktop/DF_Repos/df-services && \
   POSTGRES_URL=$POSTGRES_URL_STAGE \
