@@ -17,7 +17,7 @@ return {
 	},
 	{
 		"williamboman/mason.nvim",
-		opts = {}, -- default path setup ; prepends mason/bin to $PATH
+		opts = {},
 	},
 	{
 		"mason-org/mason-lspconfig.nvim",
@@ -26,8 +26,8 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 		opts = {
-			ensure_installed = { "lua_ls", "pyright", "tinymist", "ts_ls" },
-			automatic_enable = true,
+			ensure_installed = { "lua_ls", "tinymist", "ts_ls" },
+			automatic_enable = { exclude = { "pyright" } },
 		},
 	},
 }
