@@ -1,4 +1,5 @@
 # eseential to switch
+- [x] DF COMMON INSTALLATION IS NOT WORKING WITH THE LSP
 - [x] preview, mainly typst, but other things as well
 - [x] icons for diagnostics in the column
 - [x] line floating diagnostics
@@ -25,9 +26,9 @@
 - [x] sessions
 - [x] fatal error when it's not part of any git repo, it should just not be visible in that case
 - [x] lazygit floating window should take up the entire space
-- [ ] file search should respect obsidian aliases
 - [x] recording macro should have feed back in the statusline
-- [ ] DF COMMON INSTALLATION IS NOT WORKING WITH THE LSP
+- [ ] file search should respect obsidian aliases
+- [ ] remove the default filter of .py files in grug far
 # long term
 - [x] close all other buffer
 - [x] ruff python conform
