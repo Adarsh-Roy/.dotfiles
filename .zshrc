@@ -50,6 +50,7 @@ fi
 # PATH extensions
 export PATH="/usr/local/opt/node@22/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Neovim
 alias n='NVIM_APPNAME=nvim-self nvim'
@@ -81,6 +82,7 @@ alias open-pro-notes='cd ~/Obsidian/Professional/ObsidianProfessionalVault/'
 
 # Dragonfruit
 
+alias uvp='uv pip compile --no-cache --no-strip-extras --no-strip-markers --python-platform=linux requirements/requirements.in -o requirements/requirements.compiled'
 alias alem='alembic --config "app_alembic.ini"'
 alias open-df-services='cd ~/Desktop/DF_Repos/df-services/; conda activate df-services'
 alias open-df-common='cd ~/Desktop/DF_Repos/df-common/; conda activate df-services'
@@ -110,6 +112,9 @@ alias rdfsl='cd /Users/adarsh/Desktop/DF_Repos/df-services && \
   ANALYTICS_POSTGRES_USERNAME=$ANALYTICS_POSTGRES_USERNAME_LOCAL \
   ANALYTICS_POSTGRES_PASSWORD=$ANALYTICS_POSTGRES_PASSWORD_LOCAL \
   flask run'
+
+## df-common
+export DF_COMMON_SKIP_LEGACY_INSTALL_REQUIRES=1
 
 # zoxide
 eval "$(zoxide init zsh)"
