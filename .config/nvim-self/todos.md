@@ -28,7 +28,6 @@
 - [x] lazygit floating window should take up the entire space
 - [x] recording macro should have feed back in the statusline
 - [ ] file search should respect obsidian aliases
-- [ ] remove the default filter of .py files in grug far
 # long term
 - [x] close all other buffer
 - [x] ruff python conform
