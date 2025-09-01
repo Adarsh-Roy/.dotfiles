@@ -38,7 +38,12 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
--- Move lines to distant places
+-- Search and character-find keys always operate in the same direction
+vim.keymap.set("n", "n", "v:searchforward ? 'n' : 'N'", { expr = true })
+vim.keymap.set("n", "N", "v:searchforward ? 'N' : 'n'", { expr = true })
+vim.keymap.set({ "n", "v" }, ";", "getcharsearch().forward ? ',' : ';'", { expr = true })
+vim.keymap.set({ "n", "v" }, "'", "getcharsearch().forward ? ';' : ','", { expr = true })
+
 -- Move (line/selection) to {dest}, keep cursor/view here,
 -- but record a jumplist entry so <C-o> jumps to the moved text.
 local function move_and_record_jump(dest, is_visual)
@@ -60,33 +65,25 @@ local function move_and_record_jump(dest, is_visual)
 	-- 2) Create jumplist entries: jump to dest (`[), then jump back to original line (G)
 	local prev_lazy = vim.go.lazyredraw
 	vim.go.lazyredraw = true
-	pcall(vim.cmd, "normal! `[")                      -- jump to start of last changed text (destination)
+	pcall(vim.cmd, "normal! `[")                     -- jump to start of last changed text (destination)
 	pcall(vim.cmd, ("normal! %dG"):format(view.lnum)) -- jump back to original *line* (records a jump)
 	vim.go.lazyredraw = prev_lazy
 
 	-- 3) Restore exact column/scroll without affecting jumplist
 	vim.fn.winrestview(view)
 end
-
--- <leader>mm → prompt for destination (0, $, 42, 'a, /pat/, ?pat?)
 vim.keymap.set("n", "<leader>mm", function()
 	local dest = vim.fn.input("Move line to (0,$,42,'a,/pat/): ")
 	if dest ~= "" then move_and_record_jump(dest, false) end
 end, { silent = true, desc = "Move line; keep cursor/view; <C-o> jumps to moved text" })
-
 vim.keymap.set("x", "<leader>mm", function()
 	local dest = vim.fn.input("Move selection to (0,$,42,'a,/pat/): ")
 	if dest ~= "" then move_and_record_jump(dest, true) end
 end, { silent = true, desc = "Move selection; keep cursor/view; <C-o> jumps to moved text" })
-
--- One-tap helpers:
--- <leader>mt → Top (before first line: address 0)
--- <leader>mb → Bottom (after last line: address $)
 vim.keymap.set("n", "<leader>mt", function() move_and_record_jump("0", false) end,
 	{ silent = true, desc = "Move line to TOP; keep cursor/view; <C-o> goes to it" })
 vim.keymap.set("n", "<leader>mb", function() move_and_record_jump("$", false) end,
 	{ silent = true, desc = "Move line to BOTTOM; keep cursor/view; <C-o> goes to it" })
-
 vim.keymap.set("x", "<leader>mt", function() move_and_record_jump("0", true) end,
 	{ silent = true, desc = "Move selection to TOP; keep cursor/view; <C-o> goes to it" })
 vim.keymap.set("x", "<leader>mb", function() move_and_record_jump("$", true) end,
