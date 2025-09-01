@@ -27,6 +27,7 @@
 - [x] fatal error when it's not part of any git repo, it should just not be visible in that case
 - [x] lazygit floating window should take up the entire space
 - [x] recording macro should have feed back in the statusline
+- [ ] move commands
 - [ ] file search should respect obsidian aliases
 # long term
 - [x] close all other buffer

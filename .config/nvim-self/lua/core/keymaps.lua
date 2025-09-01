@@ -38,6 +38,44 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+-- Move lines to distant places
+local function move_preserve_view(dest, is_visual)
+	local view = vim.fn.winsaveview()
+	local ok, err
+	if is_visual then
+		-- ensure '<,'> reflect the active visual selection
+		vim.cmd("normal! gv")
+		ok, err = pcall(vim.cmd, ("'<,'>move %s"):format(dest))
+	else
+		ok, err = pcall(vim.cmd, ("move %s"):format(dest))
+	end
+	if not ok then
+		vim.notify("move error: " .. err, vim.log.levels.ERROR)
+	end
+	vim.fn.winrestview(view)
+end
+
+-- Prompted move: <leader>mm
+vim.keymap.set("n", "<leader>mm", function()
+	local dest = vim.fn.input("Move line to (0,$,42,'a,/pat/): ")
+	if dest ~= "" then move_preserve_view(dest, false) end
+end, { silent = true, desc = "Move current line to address (keep cursor/view)" })
+
+vim.keymap.set("x", "<leader>mm", function()
+	local dest = vim.fn.input("Move selection to (0,$,42,'a,/pat/): ")
+	if dest ~= "" then move_preserve_view(dest, true) end
+end, { silent = true, desc = "Move selection to address (keep cursor/view)" })
+
+-- One-touch top/bottom (0 = before first line, $ = after last line)
+vim.keymap.set("n", "<leader>mt", function() move_preserve_view("0", false) end,
+	{ silent = true, desc = "Move line to TOP (keep cursor/view)" })
+vim.keymap.set("n", "<leader>mb", function() move_preserve_view("$", false) end,
+	{ silent = true, desc = "Move line to BOTTOM (keep cursor/view)" })
+
+vim.keymap.set("x", "<leader>mt", function() move_preserve_view("0", true) end,
+	{ silent = true, desc = "Move selection to TOP (keep cursor/view)" })
+vim.keymap.set("x", "<leader>mb", function() move_preserve_view("$", true) end,
+	{ silent = true, desc = "Move selection to BOTTOM (keep cursor/view)" })
 
 -- General
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
