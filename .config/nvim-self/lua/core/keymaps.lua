@@ -79,19 +79,19 @@ end
 vim.keymap.set("n", "<leader>mm", function()
 	local dest = vim.fn.input("Move line to (0,$,42,'a,/pat/): ")
 	if dest ~= "" then move_and_record_jump(dest, false) end
-end, { silent = true, desc = "Move line; keep cursor/view; <C-o> jumps to moved text" })
+end, { silent = true, desc = "Move line" })
 vim.keymap.set("x", "<leader>mm", function()
-	local dest = vim.fn.input("Move selection to (0,$,42,'a,/pat/): ")
+	local dest = vim.fn.input("Move selected line to (0,$,42,'a,/pat/): ")
 	if dest ~= "" then move_and_record_jump(dest, true) end
-end, { silent = true, desc = "Move selection; keep cursor/view; <C-o> jumps to moved text" })
+end, { silent = true, desc = "Move selected line" })
 vim.keymap.set("n", "<leader>mt", function() move_and_record_jump("0", false) end,
-	{ silent = true, desc = "Move line to TOP; keep cursor/view; <C-o> goes to it" })
+	{ silent = true, desc = "Move line to TOP" })
 vim.keymap.set("n", "<leader>mb", function() move_and_record_jump("$", false) end,
-	{ silent = true, desc = "Move line to BOTTOM; keep cursor/view; <C-o> goes to it" })
+	{ silent = true, desc = "Move line to BOTTOM" })
 vim.keymap.set("x", "<leader>mt", function() move_and_record_jump("0", true) end,
-	{ silent = true, desc = "Move selection to TOP; keep cursor/view; <C-o> goes to it" })
+	{ silent = true, desc = "Move selected line to TOP" })
 vim.keymap.set("x", "<leader>mb", function() move_and_record_jump("$", true) end,
-	{ silent = true, desc = "Move selection to BOTTOM; keep cursor/view; <C-o> goes to it" })
+	{ silent = true, desc = "Move selected line to BOTTOM" })
 
 
 
