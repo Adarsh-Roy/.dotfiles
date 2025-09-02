@@ -26,7 +26,7 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 		opts = {
-			ensure_installed = { "lua_ls", "pyright", "tinymist", "ts_ls" },
+			ensure_installed = { "lua_ls", "pyright", "tinymist", "ts_ls", "gopls" },
 			automatic_enable = true,
 		},
 	},
