@@ -120,7 +120,42 @@ Returns:
 			local typst_snippets = {
 				s({ trig = "mt", dscr = "Math inline shortcut", snippetType = "autosnippet" }, { t("$"), i(1), t("$") }),
 				s({ trig = "mmt", dscr = "Math multiline block", snippetType = "autosnippet" },
-					{ t({ "$", "" }), i(1), t({ "", "$" }) }),
+					{
+						t({ "$", "" }),
+						i(1),
+						t({ "", "$" })
+					}
+				),
+				s({ trig = "cent", dscr = "Align center" },
+					{
+						t({ "#align(center)[", "    " }),
+						i(1),
+						t({ "", "]" })
+					}
+				),
+				s({ trig = "left", dscr = "Align left" },
+					{
+						t({ "#align(left)[", "    " }),
+						i(1),
+						t({ "", "]" })
+					}
+				),
+				s({ trig = "right", dscr = "Align right" },
+					{
+						t({ "#align(right)[", "    " }),
+						i(1),
+						t({ "", "]" })
+					}
+				),
+				s({ trig = "align", dscr = "Align" },
+					{
+						t({ "#align(" }),
+						i(1),
+						t({ ")[", "    " }),
+						i(0),
+						t({ "", "]" })
+					}
+				),
 			}
 
 			------------------------------------------------------------------
@@ -140,16 +175,19 @@ Returns:
 				"dockerfile", "html", "css", "templ", "php",
 			}
 
-			local md_snippets = {}
+			------------------------------------------------------------------
+			-- Markdown snippets
+			------------------------------------------------------------------
+			local md_snippets = {
+				s({ trig = "linkc", dscr = "Add clipboard link" }, { t("["), i(1), t("]("), f(clipboard, {}), t(")") }),
+			}
+
 			for _, lang in ipairs(languages) do
 				table.insert(md_snippets, create_code_block_snippet(lang))
 				table.insert(typst_snippets, create_code_block_snippet(lang))
 			end
-			ls.add_snippets("typst", typst_snippets)
 
-			table.insert(md_snippets,
-				s({ trig = "linkc", dscr = "Add clipboard link" }, { t("["), i(1), t("]("), f(clipboard, {}), t(")") })
-			)
+			ls.add_snippets("typst", typst_snippets)
 			ls.add_snippets("markdown", md_snippets)
 		end,
 	},
