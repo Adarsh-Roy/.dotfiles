@@ -27,7 +27,7 @@ return {
 		},
 		opts = {
 			ensure_installed = { "lua_ls", "tinymist", "ts_ls" },
-			automatic_enable = { exclude = { "pyright" } },
+			automatic_enable = { exclude = { "pyright", "ty" } },
 		},
 	},
 }
