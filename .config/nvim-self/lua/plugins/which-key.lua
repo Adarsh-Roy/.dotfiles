@@ -40,6 +40,7 @@ return {
 			{ "<leader>x", group = "Trouble" },
 			{ "<leader>p", group = "Preview" },
 			{ "<leader>;", group = "CompetiTest" },
+			{ "<leader>m", group = "Move" },
 			{ "<leader>.", group = "Scratch" },
 			{ "g/",        group = "Split/Join" },
 			{ "gs",        group = "Surround" },

@@ -27,8 +27,8 @@
 - [x] fatal error when it's not part of any git repo, it should just not be visible in that case
 - [x] lazygit floating window should take up the entire space
 - [x] recording macro should have feed back in the statusline
+- [x] move commands
 - [ ] file search should respect obsidian aliases
-- [ ] remove the default filter of .py files in grug far
 # long term
 - [x] close all other buffer
 - [x] ruff python conform

@@ -4,7 +4,8 @@ vim.o.number = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.clipboard = "unnamedplus"
-vim.o.colorcolumn = "80"
+vim.o.textwidth = 80
+vim.o.colorcolumn = "+1"
 vim.o.shiftwidth = 4
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
@@ -40,3 +41,6 @@ vim.diagnostic.config({
 	underline = true,
 	update_in_insert = false,
 })
+
+-- Persistent Undo
+vim.opt.undofile = true
