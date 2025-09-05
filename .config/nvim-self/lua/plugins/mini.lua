@@ -59,20 +59,13 @@ return {
 		local session = require("mini.sessions")
 		session.setup({
 			directory = vim.fn.stdpath("data") .. "/global_sessions",
+			autowrite = false,
 		})
 
 		vim.keymap.set("n", "<leader>Sl", function()
 			local local_file = (session.config.file ~= "" and session.config.file) or "Session.vim"
-			local uv = vim.uv or vim.loop
-			local cwd = uv.cwd()
-			local path = cwd .. "/" .. local_file
-			-- if no local session exists yet, create it once
-			if not uv.fs_stat(path) then
-				vim.cmd("silent! mksession! " .. vim.fn.fnameescape(local_file))
-			end
-			-- ensure the local session is active, then write
-			session.read(nil, { force = false, verbose = false })
-			session.write(nil)
+			-- `force = true` to overwrite any existing file without a prompt
+			session.write(local_file, { force = true })
 		end, { desc = "Save Session (local)" })
 
 		vim.keymap.set("n", "<leader>Sa", function()
