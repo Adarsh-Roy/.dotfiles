@@ -54,3 +54,4 @@
 - [ ] jump to next diagnostic with ]x instead of ]d to make things consistent
 - [ ] dial.nvim
 - [ ] where is the mapping <Space>gO coming from ?
+- [ ] dabble around with ruff as an lsp on top of the other lsp
