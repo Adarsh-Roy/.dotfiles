@@ -9,7 +9,33 @@ vim.keymap.set("n", "<leader>bnv", "<cmd>vnew<cr>", { desc = "New Buffer (Veritc
 vim.keymap.set("n", "H", "<cmd>bprev<cr>", { desc = "Previous Buffer" })
 vim.keymap.set("n", "L", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
--- Floating diagnostic window
+
+-- Yank relative path (relative to current working directory)
+local function buf_abs()
+	return vim.api.nvim_buf_get_name(0)
+end
+vim.keymap.set("n", "<leader>fyr", function()
+	local rel = vim.fn.fnamemodify(buf_abs(), ":.")
+	vim.fn.setreg("+", rel)
+	vim.notify("Yanked (relative): " .. rel)
+end, { desc = "Yank relative file path" })
+vim.keymap.set("n", "<leader>fya", function()
+	local abs = vim.fn.fnamemodify(buf_abs(), ":p")
+	vim.fn.setreg("+", abs)
+	vim.notify("Yanked (absolute): " .. abs)
+end, { desc = "Yank absolute file path" })
+vim.keymap.set("n", "<leader>fyd", function()
+	local dir = vim.fn.fnamemodify(buf_abs(), ":p:h")
+	vim.fn.setreg("+", dir)
+	vim.notify("Yanked (dir): " .. dir)
+end, { desc = "Yank directory path" })
+
+-- Yank filename only
+vim.keymap.set("n", "<leader>fyf", function()
+	local name = vim.fn.fnamemodify(buf_abs(), ":t")
+	vim.fn.setreg("+", name)
+	vim.notify("Yanked (filename): " .. name)
+end, { desc = "Yank filename only" })
 vim.keymap.set("n", "<leader>xf", function()
 	vim.diagnostic.open_float(nil, {
 		scope = "line",
@@ -98,4 +124,40 @@ vim.keymap.set("x", "<leader>mb", function() move_and_record_jump("$", true) end
 -- General
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr>")
-vim.keymap.set("n", "<leader>w ", "<cmd>qa<cr>", { desc = "Quit all" })
+
+-- Exit terminal mode with Esc twice
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
+-- Quit guard for terminal buffers
+if not vim.g._quit_guard_loaded then
+	vim.g._quit_guard_loaded = true
+	local function any_terminals_open()
+		for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+			if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == "terminal" then
+				return true
+			end
+		end
+		return false
+	end
+	local function quit_all_guarded()
+		if any_terminals_open() then
+			local choice = vim.fn.confirm(
+				"Terminal buffers are open. Quit all and kill them?",
+				"&Quit all\n&Cancel",
+				2
+			)
+			if choice ~= 1 then
+				vim.notify("Cancelled quit: terminal buffers are open.", vim.log.levels.INFO)
+				return
+			end
+		end
+		vim.cmd("qa") -- proceed
+	end
+	vim.api.nvim_create_user_command("QallCheckTerm", quit_all_guarded, {})
+	vim.cmd([[
+    cabbrev <expr> qa   (getcmdtype() == ':' && getcmdline() == 'qa')   ? 'QallCheckTerm' : 'qa'
+    cabbrev <expr> qall (getcmdtype() == ':' && getcmdline() == 'qall') ? 'QallCheckTerm' : 'qall'
+    cabbrev <expr> wqa  (getcmdtype() == ':' && getcmdline() == 'wqa')  ? 'QallCheckTerm' : 'wqa'
+  ]])
+	vim.keymap.set("n", "<leader>w ", quit_all_guarded, { desc = "Quit all (guarded)" })
+end

@@ -180,6 +180,11 @@ local function setup_keys(cfg)
 
 	cfg.keys = {}
 
+	-- Font size
+	table.insert(cfg.keys, { key = "]", mods = "LEADER", action = wezterm.action.IncreaseFontSize })
+	table.insert(cfg.keys, { key = "[", mods = "LEADER", action = wezterm.action.DecreaseFontSize })
+	table.insert(cfg.keys, { key = "f", mods = "LEADER", action = wezterm.action.ResetFontSize })
+
 	-- CMD->CTRL on macOS
 	if wezterm.target_triple:find("apple%-darwin") then
 		local function swap_modifiers(modifier, replacement)
@@ -251,20 +256,20 @@ local function setup_keys(cfg)
 
 	-- Define key mappings (removed multi-key bindings that used invalid strings)
 	local key_maps = {
-		{ key = "c", mods = "LEADER", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
-		{ key = "x", mods = "LEADER", action = wezterm.action.CloseCurrentTab({ confirm = true }) },
-		{ key = "b", mods = "LEADER", action = wezterm.action.ActivateTabRelative(-1) },
-		{ key = "n", mods = "LEADER", action = wezterm.action.ActivateTabRelative(1) },
-		{ key = "|", mods = "LEADER", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-		{ key = "-", mods = "LEADER", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
-		{ key = "h", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Left") },
-		{ key = "j", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Down") },
-		{ key = "k", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Up") },
-		{ key = "l", mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Right") },
-		{ key = "LeftArrow", mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Left", 5 }) },
+		{ key = "c",          mods = "LEADER", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
+		{ key = "x",          mods = "LEADER", action = wezterm.action.CloseCurrentTab({ confirm = true }) },
+		{ key = "b",          mods = "LEADER", action = wezterm.action.ActivateTabRelative(-1) },
+		{ key = "n",          mods = "LEADER", action = wezterm.action.ActivateTabRelative(1) },
+		{ key = "|",          mods = "LEADER", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+		{ key = "-",          mods = "LEADER", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		{ key = "h",          mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Left") },
+		{ key = "j",          mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Down") },
+		{ key = "k",          mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Up") },
+		{ key = "l",          mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Right") },
+		{ key = "LeftArrow",  mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Left", 5 }) },
 		{ key = "RightArrow", mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Right", 5 }) },
-		{ key = "UpArrow", mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Up", 5 }) },
-		{ key = "DownArrow", mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Down", 5 }) },
+		{ key = "UpArrow",    mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Up", 5 }) },
+		{ key = "DownArrow",  mods = "LEADER", action = wezterm.action.AdjustPaneSize({ "Down", 5 }) },
 		-- Instead of invalid multi-key sequences like "ws", "wc", etc.,
 		-- use a key table: leader + "w" activates the workspace table.
 		{
@@ -352,17 +357,17 @@ local function setup_keys(cfg)
 				{ key = "Escape", action = wezterm.action.PopKeyTable },
 			},
 			workspace_transport = {
-				{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "transport-service" }) },
+				{ key = "s",      action = wezterm.action.SwitchToWorkspace({ name = "transport-service" }) },
 				{ key = "Escape", action = wezterm.action.PopKeyTable },
 			},
 			workspace_notes = {
-				{ key = "d", action = wezterm.action.SwitchToWorkspace({ name = "notes-dragonfruit" }) },
-				{ key = "p", action = wezterm.action.SwitchToWorkspace({ name = "notes-professional" }) },
+				{ key = "d",      action = wezterm.action.SwitchToWorkspace({ name = "notes-dragonfruit" }) },
+				{ key = "p",      action = wezterm.action.SwitchToWorkspace({ name = "notes-professional" }) },
 				{ key = "Escape", action = wezterm.action.PopKeyTable },
 			},
 			workspace_ml = {
-				{ key = "s", action = wezterm.action.SwitchToWorkspace({ name = "ml-scripts" }) },
-				{ key = "v", action = wezterm.action.SwitchToWorkspace({ name = "ml-validation-tools" }) },
+				{ key = "s",      action = wezterm.action.SwitchToWorkspace({ name = "ml-scripts" }) },
+				{ key = "v",      action = wezterm.action.SwitchToWorkspace({ name = "ml-validation-tools" }) },
 				{ key = "Escape", action = wezterm.action.PopKeyTable },
 			},
 		}
@@ -409,7 +414,7 @@ local function setup_gui_startup()
 
 			-- Create "notes-professional" workspace
 			local professional_notes_tab, professional_notes_pane, professional_notes_window =
-				mux.spawn_window({ workspace = "notes-professional" })
+					mux.spawn_window({ workspace = "notes-professional" })
 			professional_notes_pane:send_text("open-pro-notes\n")
 			professional_notes_tab:set_title("nvim")
 
@@ -443,7 +448,7 @@ local function setup_gui_startup()
 
 			-- Create "ml-scripts" workspace
 			local ml_validation_tools_tab, ml_validation_tools_pane, ml_validation_tools_window =
-				mux.spawn_window({ workspace = "ml-validation-tools" })
+					mux.spawn_window({ workspace = "ml-validation-tools" })
 			ml_validation_tools_pane:send_text("cd ~/Desktop/DF_Repos/df-validation-tools\n")
 			ml_validation_tools_tab:set_title("nvim")
 
@@ -471,7 +476,7 @@ local function setup_gui_startup()
 
 			-- Create "transport-service" workspace
 			local transport_service_tab, transport_service_pane, transport_service_window =
-				mux.spawn_window({ workspace = "transport-service" })
+					mux.spawn_window({ workspace = "transport-service" })
 			transport_service_pane:send_text("open-transport-service\n")
 			transport_service_tab:set_title("nvim")
 
