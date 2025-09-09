@@ -36,6 +36,9 @@ vim.keymap.set("n", "<leader>fyf", function()
 	vim.fn.setreg("+", name)
 	vim.notify("Yanked (filename): " .. name)
 end, { desc = "Yank filename only" })
+
+
+-- Diagnostics
 vim.keymap.set("n", "<leader>xf", function()
 	vim.diagnostic.open_float(nil, {
 		scope = "line",
@@ -45,13 +48,23 @@ vim.keymap.set("n", "<leader>xf", function()
 	})
 end, { desc = "Trouble Float" })
 
--- Block insert in line visual mode
-vim.keymap.set("x", "I", function()
-	return vim.fn.mode() == "V" and "^<C-v>I" or "I"
-end, { expr = true })
-vim.keymap.set("x", "A", function()
-	return vim.fn.mode() == "V" and "$<C-v>A" or "A"
-end, { expr = true })
+vim.keymap.set("n", "<leader>xy", function()
+	local line_num = vim.fn.line('.')
+	local line_content = vim.fn.getline('.')
+	local diagnostics = vim.diagnostic.get(0, { lnum = line_num - 1 })
+	if not diagnostics or #diagnostics == 0 then
+		vim.notify("No diagnostics on the current line.", vim.log.levels.WARN)
+		return
+	end
+	local messages = {}
+	for i, d in ipairs(diagnostics) do
+		table.insert(messages, i .. ". " .. d.message)
+	end
+	local formatted_diagnostics = table.concat(messages, "\n")
+	local full_message = string.format("Line Content: %s\nDiagnostic:\n%s", line_content, formatted_diagnostics)
+	vim.fn.setreg('+', full_message)
+	vim.notify("Copied diagnostic to clipboard:\n" .. full_message)
+end, { desc = "Copy Diagnostic" })
 
 
 -- Navigation
