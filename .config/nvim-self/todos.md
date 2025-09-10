@@ -29,6 +29,7 @@
 - [x] recording macro should have feed back in the statusline
 - [x] move commands
 - [ ] file search should respect obsidian aliases
+- [ ] use different mappings for diffview, it should not conflict with code actions
 # long term
 - [x] close all other buffer
 - [x] ruff python conform
