@@ -30,6 +30,7 @@
 - [x] recording macro should have feed back in the statusline
 - [x] move commands
 - [ ] file search should respect obsidian aliases
+- [ ] make qa! functioning
 # long term
 - [x] close all other buffer
 - [x] ruff python conform
