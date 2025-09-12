@@ -34,7 +34,7 @@ return {
 			{ "<leader>s",  group = "Search" },
 			{ "<leader>S",  group = "Session" },
 			{ "<leader>c",  group = "Code/LSP" },
-			{ "<leader>f",  group = "Find/Files" },
+			{ "<leader>f",  group = "Files/Find" },
 			{ "<leader>fy", group = "Yank File Path/Name" },
 			{ "<leader>g",  group = "Git" },
 			{ "<leader>u",  group = "UI" },

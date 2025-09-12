@@ -26,10 +26,10 @@ local function on_attach(client, buf)
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buf, desc = "LSP: Hover" })
 	end
 	if client:supports_method(Methods.textDocument_rename) then
-		vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { buffer = buf, desc = "LSP: Rename symbol" })
+		vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { buffer = buf, desc = "LSP: Rename symbol" })
 	end
 	if client:supports_method(Methods.textDocument_codeAction) then
-		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "LSP: Code action" })
+		vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { buffer = buf, desc = "LSP: Code action" })
 	end
 end
 

@@ -138,7 +138,7 @@ return {
 		{ "<leader>n",  function() Snacks.notifier.show_history() end,        desc = "Notification History" },
 		{ "<leader>bd", function() Snacks.bufdelete() end,                    desc = "Delete Buffer" },
 		{ "<leader>bo", function() Snacks.bufdelete.other() end,              desc = "Delete Other Buffers" },
-		{ "<leader>cR", function() Snacks.rename.rename_file() end,           desc = "Rename File" },
+		{ "<leader>fR", function() Snacks.rename.rename_file() end,           desc = "Rename File" },
 		{ "<leader>un", function() Snacks.notifier.hide() end,                desc = "Dismiss All Notifications" },
 		{ "<c-/>",      function() Snacks.terminal() end,                     desc = "Toggle Terminal" },
 		{ "<c-_>",      function() Snacks.terminal() end,                     desc = "which_key_ignore" },
