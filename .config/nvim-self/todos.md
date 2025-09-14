@@ -1,4 +1,5 @@
 # eseential to switch
+- [x] make qa! functioning
 - [x] use different mappings for diffview, it should not conflict with code actions
 - [x] DF COMMON INSTALLATION IS NOT WORKING WITH THE LSP
 - [x] preview, mainly typst, but other things as well
@@ -30,7 +31,6 @@
 - [x] recording macro should have feed back in the statusline
 - [x] move commands
 - [ ] file search should respect obsidian aliases
-- [ ] make qa! functioning
 # long term
 - [x] close all other buffer
 - [x] ruff python conform
