@@ -141,7 +141,7 @@ vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>w<cr>")
 -- Exit terminal mode with Esc twice
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
--- Quit guard for terminal buffers
+-- Quit guard for terminal buffers (handles qa/qall/wqa with/without bang)
 if not vim.g._quit_guard_loaded then
 	vim.g._quit_guard_loaded = true
 	local function any_terminals_open()
@@ -152,8 +152,9 @@ if not vim.g._quit_guard_loaded then
 		end
 		return false
 	end
-	local function quit_all_guarded()
-		if any_terminals_open() then
+	local function quit_all_guarded(force)
+		-- force == true when user typed :qa! / :qall!
+		if not force and any_terminals_open() then
 			local choice = vim.fn.confirm(
 				"Terminal buffers are open. Quit all and kill them?",
 				"&Quit all\n&Cancel",
@@ -164,13 +165,50 @@ if not vim.g._quit_guard_loaded then
 				return
 			end
 		end
-		vim.cmd("qa") -- proceed
+		vim.cmd(force and "qa!" or "qa")
 	end
-	vim.api.nvim_create_user_command("QallCheckTerm", quit_all_guarded, {})
+	local function write_quit_all_guarded(force)
+		if not force and any_terminals_open() then
+			local choice = vim.fn.confirm(
+				"Terminal buffers are open. Write all and quit?",
+				"&Write & Quit all\n&Cancel",
+				2
+			)
+			if choice ~= 1 then
+				vim.notify("Cancelled write-quit: terminal buffers are open.", vim.log.levels.INFO)
+				return
+			end
+		end
+		vim.cmd(force and "wqa!" or "wqa")
+	end
+	-- Define commands that accept a bang
+	vim.api.nvim_create_user_command("QallCheckTerm", function(opts)
+		quit_all_guarded(opts.bang)
+	end, { bang = true })
+	vim.api.nvim_create_user_command("WqallCheckTerm", function(opts)
+		write_quit_all_guarded(opts.bang)
+	end, { bang = true })
+	-- Abbreviations: case-insensitive, allow optional spaces, preserve trailing "!"
+	-- Also clear any older conflicting abbrevs first
 	vim.cmd([[
-    cabbrev <expr> qa   (getcmdtype() == ':' && getcmdline() == 'qa')   ? 'QallCheckTerm' : 'qa'
-    cabbrev <expr> qall (getcmdtype() == ':' && getcmdline() == 'qall') ? 'QallCheckTerm' : 'qall'
-    cabbrev <expr> wqa  (getcmdtype() == ':' && getcmdline() == 'wqa')  ? 'QallCheckTerm' : 'wqa'
+    silent! cunabbrev qa
+    silent! cunabbrev qall
+    silent! cunabbrev wqa
+    " qa / qa! → QallCheckTerm / QallCheckTerm!
+    cnoreabbrev <expr> qa
+          \ getcmdtype() ==# ':' && getcmdline() =~? '^\s*qa\%(\s*!\)\=\s*$'
+          \ ? 'QallCheckTerm' . (getcmdline() =~? '!\s*$' ? '!' : '')
+          \ : 'qa'
+    " qall / qall! → QallCheckTerm / QallCheckTerm!
+    cnoreabbrev <expr> qall
+          \ getcmdtype() ==# ':' && getcmdline() =~? '^\s*qall\%(\s*!\)\=\s*$'
+          \ ? 'QallCheckTerm' . (getcmdline() =~? '!\s*$' ? '!' : '')
+          \ : 'qall'
+    " wqa / wqa! → WqallCheckTerm / WqallCheckTerm!
+    cnoreabbrev <expr> wqa
+          \ getcmdtype() ==# ':' && getcmdline() =~? '^\s*wqa\%(\s*!\)\=\s*$'
+          \ ? 'WqallCheckTerm' . (getcmdline() =~? '!\s*$' ? '!' : '')
+          \ : 'wqa'
   ]])
-	vim.keymap.set("n", "<leader>w ", quit_all_guarded, { desc = "Quit all (guarded)" })
+	vim.keymap.set("n", "<leader>w ", function() quit_all_guarded(false) end, { desc = "Quit all (guarded)" })
 end

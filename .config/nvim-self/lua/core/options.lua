@@ -1,5 +1,5 @@
 vim.o.relativenumber = true
-vim.opt.splitright = true
+vim.o.splitright = true
 vim.o.number = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -9,7 +9,6 @@ vim.o.colorcolumn = "-9"
 vim.o.shiftwidth = 4
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
-
 
 -- Fold
 vim.o.foldmethod = "expr"
