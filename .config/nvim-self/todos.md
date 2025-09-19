@@ -31,6 +31,9 @@
 - [x] recording macro should have feed back in the statusline
 - [x] move commands
 - [ ] file search should respect obsidian aliases
+- [ ] <C-backsapce> shoud be mapped to deleting word in insert mode.
+- [ ] quitting when there's unsaved changes should go buffer to buffer asking save/discard/cancel
+    see how lazyvim does it
 # long term
 - [x] close all other buffer
 - [x] ruff python conform

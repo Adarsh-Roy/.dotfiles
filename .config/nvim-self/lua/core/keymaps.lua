@@ -38,6 +38,14 @@ vim.keymap.set("n", "<leader>fyf", function()
 end, { desc = "Yank filename only" })
 
 
+-- Block insert and append
+vim.keymap.set("x", "I", function()
+	return vim.fn.mode() == "V" and "^<C-v>I" or "I"
+end, { expr = true })
+vim.keymap.set("x", "A", function()
+	return vim.fn.mode() == "V" and "$<C-v>A" or "A"
+end, { expr = true })
+
 -- Diagnostics
 vim.keymap.set("n", "<leader>xf", function()
 	vim.diagnostic.open_float(nil, {
