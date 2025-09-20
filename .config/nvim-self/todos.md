@@ -34,6 +34,8 @@
 - [ ] <C-backsapce> shoud be mapped to deleting word in insert mode.
 - [ ] quitting when there's unsaved changes should go buffer to buffer asking save/discard/cancel
     see how lazyvim does it
+- [ ] fix the bug where it sometimes shows the dialogue box even though no terminal buffers are
+open
 # long term
 - [x] close all other buffer
 - [x] ruff python conform
