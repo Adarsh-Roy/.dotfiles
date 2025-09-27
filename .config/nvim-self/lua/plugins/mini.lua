@@ -80,7 +80,19 @@ return {
 		require("mini.ai").setup({
 			n_lines = 200
 		})
-		require("mini.move").setup()
+		require("mini.move").setup({
+			mappings = {
+				left       = '<C-Left>',
+				right      = '<C-Right>',
+				down       = '<C-Down>',
+				up         = '<C-Up>',
+
+				line_left  = '<C-Left>',
+				line_right = '<C-Right>',
+				line_down  = '<C-Down>',
+				line_up    = '<C-Up>',
+			},
+		})
 		require("mini.pairs").setup()
 		require("mini.operators").setup({
 			exchange = {
