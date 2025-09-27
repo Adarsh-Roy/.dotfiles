@@ -237,25 +237,6 @@ local function setup_keys(cfg)
 		})
 	end
 
-	-- Quit app with Ctrl+Q, copy with Ctrl+C, and paste with Ctrl+P on macOS
-	if wezterm.target_triple:find("apple%-darwin") then
-		table.insert(cfg.keys, {
-			key = "q",
-			mods = "CTRL",
-			action = wezterm.action.QuitApplication,
-		})
-		table.insert(cfg.keys, {
-			key = "c",
-			mods = "CTRL",
-			action = wezterm.action.CopyTo("Clipboard"),
-		})
-		table.insert(cfg.keys, {
-			key = "v",
-			mods = "CTRL",
-			action = wezterm.action.PasteFrom("Clipboard"),
-		})
-	end
-
 	-- Define key tables for multi-key sequences.
 	-- The "workspace" table handles workspace switching.
 	-- For the three-key sequence (leader + w + t + s), we nest another key table.
