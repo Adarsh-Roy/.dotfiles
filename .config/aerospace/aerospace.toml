@@ -164,7 +164,19 @@ automatically-unhide-macos-hidden-apps = true
     shift-down = ['volume set 0', 'mode main']
 
 [[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
+if.app-id = 'com.openai.chat'
 run = 'move-node-to-workspace C'
 
 [[on-window-detected]]
@@ -178,3 +190,4 @@ run = 'move-node-to-workspace B'
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace M'
+
