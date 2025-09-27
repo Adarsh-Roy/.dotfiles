@@ -245,6 +245,24 @@
       "label" : " Screenshot to Clipboard",
       "type" : "url",
       "value" : "raycast://extensions/Aayush9029/screenshot/capture-to-clipboard"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "i",
+          "label" : "Internal",
+          "type" : "command",
+          "value" : "/Library/Application\\ Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli --select-profile \"Internal Keyboard\""
+        },
+        {
+          "key" : "e",
+          "type" : "command",
+          "value" : "/Library/Application\\ Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli --select-profile \"External Keyboard\""
+        }
+      ],
+      "key" : "k",
+      "label" : "Keyboard",
+      "type" : "group"
     }
   ],
   "type" : "group"
