@@ -5,7 +5,7 @@
                 "parameters": { "basic.to_if_held_down_threshold_milliseconds": 130 },
                 "rules": [
                     {
-                        "description": "M acts as Right Option when held, M when tapped",
+                        "description": "M acts as Right Command when held, M when tapped",
                         "manipulators": [
                             {
                                 "from": {
@@ -19,7 +19,7 @@
                         ]
                     },
                     {
-                        "description": "V acts as Left Option when held, V when tapped",
+                        "description": "V acts as Left Command when held, V when tapped",
                         "manipulators": [
                             {
                                 "from": {
@@ -47,7 +47,7 @@
                         ]
                     },
                     {
-                        "description": "C acts as Option when held, C when tapped",
+                        "description": "C acts as Left Option when held, C when tapped",
                         "manipulators": [
                             {
                                 "from": {
@@ -61,7 +61,7 @@
                         ]
                     },
                     {
-                        "description": "Make X act as Control when used with other keys (tap = x)",
+                        "description": "Make X act as Left Control when used with other keys (tap = x)",
                         "manipulators": [
                             {
                                 "from": {
@@ -75,7 +75,7 @@
                         ]
                     },
                     {
-                        "description": "Make . (period) act as Control when used with other keys (tap = . (period))",
+                        "description": "Make . (period) act as Right Control when used with other keys (tap = . (period))",
                         "manipulators": [
                             {
                                 "from": {
