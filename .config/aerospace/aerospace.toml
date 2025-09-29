@@ -15,7 +15,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 13
+accordion-padding = 31
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
@@ -97,10 +97,10 @@ automatically-unhide-macos-hidden-apps = true
     alt-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    alt-h = 'focus left'
-    alt-j = 'focus down'
-    alt-k = 'focus up'
-    alt-l = 'focus right'
+    alt-h = "focus --boundaries workspace --boundaries-action wrap-around-the-workspace left"
+    alt-l = "focus --boundaries workspace --boundaries-action wrap-around-the-workspace right"
+    alt-j = "focus --boundaries workspace --boundaries-action wrap-around-the-workspace down"
+    alt-k = "focus --boundaries workspace --boundaries-action wrap-around-the-workspace up"
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
     alt-shift-h = 'move left'
@@ -123,14 +123,14 @@ automatically-unhide-macos-hidden-apps = true
     alt-c = 'workspace C' # Conversations (Slack, Whatsapp, Chatgpt App)
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-    alt-shift-1 = 'move-node-to-workspace 1'
-    alt-shift-2 = 'move-node-to-workspace 2'
-    alt-shift-3 = 'move-node-to-workspace 3'
-    alt-shift-4 = 'move-node-to-workspace 4'
-    alt-shift-d = 'move-node-to-workspace D'
-    alt-shift-m = 'move-node-to-workspace M'
-    alt-shift-b = 'move-node-to-workspace B'
-    alt-shift-c = 'move-node-to-workspace C'
+    alt-shift-1 = ['move-node-to-workspace 1','workspace 1']
+    alt-shift-2 = ['move-node-to-workspace 2','workspace 2']
+    alt-shift-3 = ['move-node-to-workspace 3','workspace 3']
+    alt-shift-4 = ['move-node-to-workspace 4','workspace 4']
+    alt-shift-d = ['move-node-to-workspace D', 'workspace D']
+    alt-shift-m = ['move-node-to-workspace M', 'workspace M']
+    alt-shift-b = ['move-node-to-workspace B', 'workspace B']
+    alt-shift-c = ['move-node-to-workspace C', 'workspace C']
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
@@ -172,6 +172,10 @@ if.app-id = 'net.whatsapp.WhatsApp'
 run = 'move-node-to-workspace C'
 
 [[on-window-detected]]
+if.app-id = 'com.electron.asana'
+run = 'move-node-to-workspace C'
+
+[[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace C'
 
@@ -190,4 +194,3 @@ run = 'move-node-to-workspace B'
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace M'
-
