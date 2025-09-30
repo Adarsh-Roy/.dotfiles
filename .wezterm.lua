@@ -237,6 +237,11 @@ local function setup_keys(cfg)
 		})
 	end
 
+	-- Font size via Leader (OS-agnostic)
+	table.insert(cfg.keys, { key = "]", mods = "LEADER", action = wezterm.action.IncreaseFontSize })
+	table.insert(cfg.keys, { key = "[", mods = "LEADER", action = wezterm.action.DecreaseFontSize })
+	table.insert(cfg.keys, { key = "f", mods = "LEADER", action = wezterm.action.ResetFontSize })
+
 	-- Define key tables for multi-key sequences.
 	-- The "workspace" table handles workspace switching.
 	-- For the three-key sequence (leader + w + t + s), we nest another key table.
