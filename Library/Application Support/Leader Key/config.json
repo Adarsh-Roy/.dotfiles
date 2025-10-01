@@ -113,6 +113,24 @@
           "label" : "Fullscreen",
           "type" : "url",
           "value" : "raycast://extensions/raycast/window-management/toggle-fullscreen"
+        },
+        {
+          "key" : "h",
+          "label" : "Left Half",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/left-half"
+        },
+        {
+          "key" : "l",
+          "label" : "Right Half",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/right-half"
+        },
+        {
+          "key" : "m",
+          "label" : "Maximize",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/window-management/maximize"
         }
       ],
       "key" : "w",
