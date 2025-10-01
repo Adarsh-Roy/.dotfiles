@@ -2,9 +2,9 @@
     "profiles": [
         {
             "complex_modifications": {
-                "parameters": { 
-                    "basic.to_if_held_down_threshold_milliseconds": 130,
-                    "basic.to_if_alone_timeout_milliseconds": 500
+                "parameters": {
+                    "basic.to_if_alone_timeout_milliseconds": 500,
+                    "basic.to_if_held_down_threshold_milliseconds": 130
                 },
                 "rules": [
                     {
@@ -215,11 +215,11 @@
                 ]
             },
             "name": "Internal Keyboard",
-            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         },
         {
             "name": "External Keyboard",
+            "selected": true,
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
