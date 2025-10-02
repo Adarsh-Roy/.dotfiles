@@ -8,7 +8,7 @@
 		},
 		"rules": [
 		    {
-			"description": "D = Numbers layer, J = Symbols layer",
+			"description": "W = Numbers layer, J = Symbols layer",
 			"manipulators": [
 			    {
 				"type": "basic",
