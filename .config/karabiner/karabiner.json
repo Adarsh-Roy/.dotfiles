@@ -17,7 +17,8 @@
 				"to_after_key_up": [ { "set_variable": { "name": "numbers_layer", "value": 0 } } ],
 				"to_if_alone": [ { "key_code": "w" } ],
 				"conditions": [
-				    { "type": "variable_unless", "name": "symbols_layer", "value": 1 }
+				    { "type": "variable_unless", "name": "symbols_layer", "value": 1 },
+				    { "type": "variable_unless", "name": "nav_layer", "value": 1 }
 				]
 			    },
 			    {
