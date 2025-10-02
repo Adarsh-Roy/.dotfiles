@@ -188,7 +188,7 @@
           "value" : "raycast://extensions/mattisssa/spotify-player/previous"
         },
         {
-          "key" : " ",
+          "key" : "space",
           "label" : "Toggle Play/Pause",
           "type" : "url",
           "value" : "raycast://extensions/mattisssa/spotify-player/togglePlayPause"
