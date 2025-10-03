@@ -259,12 +259,6 @@
       "type" : "group"
     },
     {
-      "key" : "x",
-      "label" : " Screenshot to Clipboard",
-      "type" : "url",
-      "value" : "raycast://extensions/Aayush9029/screenshot/capture-to-clipboard"
-    },
-    {
       "actions" : [
         {
           "key" : "i",
@@ -280,6 +274,25 @@
       ],
       "key" : "k",
       "label" : "Keyboard",
+      "type" : "group"
+    },
+    {
+      "actions" : [
+        {
+          "key" : "t",
+          "label" : "Text",
+          "type" : "url",
+          "value" : "raycast://extensions/huzef44/screenocr/recognize-text"
+        },
+        {
+          "key" : "i",
+          "label" : "Image",
+          "type" : "url",
+          "value" : "raycast://extensions/Aayush9029/screenshot/capture-to-clipboard"
+        }
+      ],
+      "key" : "x",
+      "label" : "Capture",
       "type" : "group"
     }
   ],
