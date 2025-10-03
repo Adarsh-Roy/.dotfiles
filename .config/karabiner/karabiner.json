@@ -8,7 +8,7 @@
                 },
                 "rules": [
                     {
-                        "description": "W = Numbers layer, J = Symbols layer",
+                        "description": "W = Numbers layer, O = Symbols layer",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -78,10 +78,10 @@
 
                             {
                                 "type": "basic",
-                                "from": { "key_code": "j", "modifiers": { "optional": ["any"] } },
+                                "from": { "key_code": "o", "modifiers": { "optional": ["any"] } },
                                 "to": [ { "set_variable": { "name": "symbols_layer", "value": 1 } } ],
                                 "to_after_key_up": [ { "set_variable": { "name": "symbols_layer", "value": 0 } } ],
-                                "to_if_alone": [ { "key_code": "j" } ],
+                                "to_if_alone": [ { "key_code": "o" } ],
                                 "conditions": [
                                     { "type": "variable_unless", "name": "nav_layer", "value": 1 },
                                     { "type": "variable_unless", "name": "numbers_layer", "value": 1 }
