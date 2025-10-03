@@ -8,14 +8,14 @@
                 },
                 "rules": [
                     {
-                        "description": "W = Numbers layer, O = Symbols layer",
+                        "description": "T = Numbers layer, Y = Symbols layer",
                         "manipulators": [
                             {
                                 "type": "basic",
-                                "from": { "key_code": "w", "modifiers": { "optional": ["any"] } },
+                                "from": { "key_code": "t", "modifiers": { "optional": ["any"] } },
                                 "to": [ { "set_variable": { "name": "numbers_layer", "value": 1 } } ],
                                 "to_after_key_up": [ { "set_variable": { "name": "numbers_layer", "value": 0 } } ],
-                                "to_if_alone": [ { "key_code": "w" } ],
+                                "to_if_alone": [ { "key_code": "t" } ],
                                 "conditions": [
                                     { "type": "variable_unless", "name": "symbols_layer", "value": 1 },
                                     { "type": "variable_unless", "name": "nav_layer", "value": 1 }
@@ -60,6 +60,12 @@
                             {
                                 "type": "basic",
                                 "conditions": [ { "type": "variable_if", "name": "numbers_layer", "value": 1 } ],
+                                "from": { "key_code": "n", "modifiers": { "optional": ["any"] } },
+                                "to": [ { "key_code": "0" } ]
+                            },
+                            {
+                                "type": "basic",
+                                "conditions": [ { "type": "variable_if", "name": "numbers_layer", "value": 1 } ],
                                 "from": { "key_code": "m", "modifiers": { "optional": ["any"] } },
                                 "to": [ { "key_code": "1" } ]
                             },
@@ -78,10 +84,10 @@
 
                             {
                                 "type": "basic",
-                                "from": { "key_code": "o", "modifiers": { "optional": ["any"] } },
+                                "from": { "key_code": "y", "modifiers": { "optional": ["any"] } },
                                 "to": [ { "set_variable": { "name": "symbols_layer", "value": 1 } } ],
                                 "to_after_key_up": [ { "set_variable": { "name": "symbols_layer", "value": 0 } } ],
-                                "to_if_alone": [ { "key_code": "o" } ],
+                                "to_if_alone": [ { "key_code": "y" } ],
                                 "conditions": [
                                     { "type": "variable_unless", "name": "nav_layer", "value": 1 },
                                     { "type": "variable_unless", "name": "numbers_layer", "value": 1 }
