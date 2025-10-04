@@ -35,6 +35,14 @@ return {
 		picker = {
 			enabled = true,
 			win = {
+				input = {
+					keys = {
+						['<M-h>'] = false,
+						['<M-i>'] = false,
+						['<C-h>'] = { "toggle_hidden", mode = { "i", "n" } },
+						['<C-i>'] = { "toggle_ignored", mode = { "i", "n" } }
+					}
+				},
 				preview = {
 					wo = { cursorline = true, cursorlineopt = "line" },
 				},
@@ -67,7 +75,7 @@ return {
 		{ "<leader>:",       function() Snacks.picker.command_history() end,                         desc = "Command History" },
 		{ "<leader>n",       function() Snacks.picker.notifications() end,                           desc = "Notification History" },
 		{ "<leader>fe",      function() Snacks.explorer() end,                                       desc = "File Explorer" },
-		-- find
+		-- find/files
 		{ "<leader>fb",      function() Snacks.picker.buffers() end,                                 desc = "Buffers" },
 		{ "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 		{ "<leader>ff",      function() Snacks.picker.files() end,                                   desc = "Find Files" },
@@ -104,7 +112,6 @@ return {
 		{ '<leader>s"', function() Snacks.picker.registers() end,             desc = "Registers" },
 		{ '<leader>s/', function() Snacks.picker.search_history() end,        desc = "Search History" },
 		{ "<leader>sa", function() Snacks.picker.autocmds() end,              desc = "Autocmds" },
-		{ "<leader>sb", function() Snacks.picker.lines() end,                 desc = "Buffer Lines" },
 		{ "<leader>sc", function() Snacks.picker.command_history() end,       desc = "Command History" },
 		{ "<leader>sC", function() Snacks.picker.commands() end,              desc = "Commands" },
 		{ "<leader>sd", function() Snacks.picker.diagnostics() end,           desc = "Diagnostics" },
