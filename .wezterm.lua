@@ -190,9 +190,8 @@ local function setup_keys(cfg)
 	-- Define key mappings (removed multi-key bindings that used invalid strings)
 	local key_maps = {
 		{ key = "c",          mods = "LEADER", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
-		{ key = "x",          mods = "LEADER", action = wezterm.action.CloseCurrentTab({ confirm = true }) },
-		{ key = "b",          mods = "LEADER", action = wezterm.action.ActivateTabRelative(-1) },
-		{ key = "n",          mods = "LEADER", action = wezterm.action.ActivateTabRelative(1) },
+		{ key = "h",          mods = "CMD",    action = wezterm.action.ActivateTabRelative(-1) },
+		{ key = "l",          mods = "CMD",    action = wezterm.action.ActivateTabRelative(1) },
 		{ key = "|",          mods = "LEADER", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "-",          mods = "LEADER", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "h",          mods = "LEADER", action = wezterm.action.ActivatePaneDirection("Left") },
